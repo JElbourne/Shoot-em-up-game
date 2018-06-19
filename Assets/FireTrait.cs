@@ -5,15 +5,27 @@ using UnityEngine;
 public class FireTrait : MonoBehaviour {
 
     public GameObject bullet;
+    public float fireRate = 0.25f;
 
-    GameObject m_Bullet;
+    float m_CooldownTimer;
+
+    private void Start()
+    {
+        m_CooldownTimer = fireRate;
+    }
+
+    private void Update()
+    {
+        m_CooldownTimer -= Time.deltaTime;
+    }
 
     public void Shoot(bool positive)
     {
-        if (bullet)
-            m_Bullet = Instantiate(bullet, transform.position, Quaternion.identity);
+        if (bullet && m_CooldownTimer <= 0)
+        {
+            Instantiate(bullet, transform.position, transform.rotation);
+            m_CooldownTimer = fireRate;
+        }
 
-        if (m_Bullet)
-            m_Bullet.GetComponent<BulletBasic_Ai>().SetDirection(positive);
     }
 }

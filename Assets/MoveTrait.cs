@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class MoveTrait : MonoBehaviour {
 
-    Rigidbody2D m_rb;
-
-    public float speed = 20;
-
-	void Awake () {
-        m_rb = GetComponent<Rigidbody2D>();
-	}
-
-    public void Move(float hor, float ver)
+    public void Move(float hor, float ver, float speed, bool rotatePosition = false)
     {
-        if (m_rb)
-            m_rb.AddForce(new Vector2(hor * speed, ver * speed));
+        Vector3 pos = transform.position;
+        Vector3 velocity = new Vector3(hor * speed * Time.deltaTime, ver * speed * Time.deltaTime, 0f);
+
+        if (rotatePosition)
+        {
+            pos += transform.rotation * velocity;
+        } else
+        {
+            pos += velocity;
+        }
+        
+        transform.position = pos;
     }
 }

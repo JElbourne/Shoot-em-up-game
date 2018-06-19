@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFast_Ai : MonoBehaviour {
+public class EnemyFastController : MonoBehaviour {
 
     MoveTrait m_MoveTrait;
+    public float maxSpeed = 20f;
 
 	// Use this for initialization
 	void Start () {
@@ -14,6 +15,6 @@ public class EnemyFast_Ai : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (m_MoveTrait)
-            m_MoveTrait.Move(0, -1);
+            m_MoveTrait.Move(0, -1, maxSpeed);
 	}
 }

@@ -35,7 +35,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4383400971750730}
-  - component: {fileID: 50733443416022494}
   - component: {fileID: 58011607926446190}
   - component: {fileID: 114896936083392154}
   - component: {fileID: 114843122933778854}
@@ -53,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1052904725541250}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 5.97, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 4383400971750730}
@@ -66,33 +65,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1573113874717744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.52, y: 1.47, z: -0.066488005}
+  m_LocalPosition: {x: -3.66, y: 6.61, z: -0.066488005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4036200519490578}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50733443416022494
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1573113874717744}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 8
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!58 &58011607926446190
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -119,7 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52541904a214d194ba5a5d9a3e9757a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 60
 --- !u!114 &114896936083392154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -131,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721c21cf4bd0c93498b39f096de3eb31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 20
 --- !u!212 &212821301947219054
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -163,8 +142,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -809296663
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.8773585, g: 0.33521718, b: 0.37157884, a: 1}
