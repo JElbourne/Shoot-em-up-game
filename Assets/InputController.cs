@@ -8,21 +8,24 @@ public class InputController : MonoBehaviour {
 
     MoveTrait m_MoveTrait;
     FireTrait m_FireTrait;
-    FaceInput m_FaceInput;
+    FaceTarget m_FaceTarget;
     PlayerController m_PlayerController;
 
     // Use this for initialization
     void Start () {
         m_MoveTrait = target.GetComponent<MoveTrait>();
-        m_FaceInput = target.GetComponent<FaceInput>();
+        m_FaceTarget = target.GetComponent<FaceTarget>();
         m_FireTrait = target.GetComponentInChildren<FireTrait>();
         m_PlayerController = target.GetComponent<PlayerController>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (m_FaceInput)
-            m_FaceInput.SetDirection(Input.mousePosition);
+        if (m_FaceTarget)
+        {
+            Vector3 inputWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            m_FaceTarget.SetDirection(inputWorldPosition);
+        }
 
         if (m_MoveTrait)
         {
