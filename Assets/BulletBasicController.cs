@@ -11,7 +11,7 @@ public class BulletBasicController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         m_MoveTrait = GetComponent<MoveTrait>();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
