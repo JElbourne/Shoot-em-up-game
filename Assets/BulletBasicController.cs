@@ -26,5 +26,12 @@ public class BulletBasicController : MonoBehaviour {
 
         if (killable)
             killable.Damage(damage);
+
+        Die();
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }

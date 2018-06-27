@@ -15,6 +15,11 @@ public class LifeSpanTrait : MonoBehaviour {
 	void Update () {
         m_CountdownTimer -= Time.deltaTime;
         if (m_CountdownTimer <= 0)
-            Destroy(gameObject);
+            Die();
 	}
+
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
 }
