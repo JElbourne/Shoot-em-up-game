@@ -16,6 +16,13 @@ public class KillableTrait : MonoBehaviour {
 
     void Die()
     {
-        Destroy(gameObject);
+        if (gameObject.tag == "Player")
+        {
+            FindObjectOfType<GameController>().EndGame();
+        } else
+        {
+            Destroy(gameObject);
+        }
+        
     }
 }
