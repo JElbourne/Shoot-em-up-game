@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1846766623262852}
+  m_IsPrefabParent: 1
+--- !u!1 &1846766623262852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4525676814477876}
+  - component: {fileID: 114005246809138204}
+  - component: {fileID: 114671883308975524}
+  m_Layer: 0
+  m_Name: LevelRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4525676814477876
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1846766623262852}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114005246809138204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1846766623262852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f288b11a4078a5040b0f6657b4b4e36f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomWhiteObj: {fileID: 1975706786332780, guid: a1fe431a2bc4a2940b2503b8f131da18,
+    type: 2}
+  mapRoot: {fileID: 4816983517649620, guid: b536a4e19adaf6b4fba6db51fd47cfd6, type: 2}
+--- !u!114 &114671883308975524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1846766623262852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87595009fef42294980701616981714c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomWidth: 17
+  roomHeight: 9
+  gutterSize: 0
+  sheetsNormal:
+  - {fileID: 2800000, guid: 5d4c4f40a1564c444887e7999c48d18d, type: 3}
+  - {fileID: 2800000, guid: dc7b8578c102bd546bd34dc9a366a8f0, type: 3}
+  - {fileID: 2800000, guid: 73332cb71d001244fb5ab7bc35af61a8, type: 3}
+  - {fileID: 2800000, guid: 99ae6df318064444bb24dd898bd356a5, type: 3}
+  - {fileID: 2800000, guid: 1d48a76d657a5804c9beacc313aec3ad, type: 3}
+  - {fileID: 2800000, guid: 564d6ca77f8ea7041bf378157f5feba0, type: 3}
+  RoomObj: {fileID: 1038065722679700, guid: 092b915af527d594aa11083a065a8de8, type: 2}
