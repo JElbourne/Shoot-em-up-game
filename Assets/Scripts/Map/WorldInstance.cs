@@ -9,12 +9,21 @@ public class WorldInstance : MonoBehaviour {
     public int roomTilesHigh = 9;
     public int numberOfLevels = 1;
 
-    int m_CurrentLevel = 1;
+    [HideInInspector]
+    public List<Vector3> potentialStairLocations = new List<Vector3>();
+
+    [HideInInspector]
+    public int currentLevel = 1;
 
     [SerializeField]
 	Texture2D[] m_RoomPatterns;
 
-    Dictionary<int, GameObject> m_LevelsData = new Dictionary<int, GameObject>();
+    public GameObject stairTile;
+    public GameObject exitTile;
+
+    [HideInInspector]
+    public Dictionary<int, GameObject> levelsData = new Dictionary<int, GameObject>();
+    
     Dictionary<Vector3, Tile> m_MapTileData = new Dictionary<Vector3, Tile>();
 
     public void Setup()
@@ -28,11 +37,15 @@ public class WorldInstance : MonoBehaviour {
 
             LevelGeneration m_LevelGen = GetComponent<LevelGeneration>();
             m_LevelGen.Setup(worldSize, i + 1, m_MiniMapGo.transform);
-            m_LevelsData[i + 1] = m_LevelGo;
+            levelsData[i + 1] = m_LevelGo;
 
             AddRoomsToWorld(m_LevelGo, m_LevelGen.levelRooms, i+1);
 
-            if (i != (m_CurrentLevel-1))
+            bool exit = (i == numberOfLevels - 1);
+            SelectAndPlaceStair(i + 1, m_LevelGo.transform, exit);
+            
+
+            if (i != (currentLevel-1))
             {
                 m_LevelGo.SetActive(false);
             }
@@ -67,6 +80,25 @@ public class WorldInstance : MonoBehaviour {
 		}
 	}
 
+    void SelectAndPlaceStair(int _level, Transform _parent, bool _exit)
+    {
+        float largestDist = 0f;
+        Vector3 currentPos = Vector3.zero;
+        GameObject tile = (_exit) ? exitTile : stairTile;
+
+        foreach (Vector3 stairPos in potentialStairLocations)
+        {
+            float dist = Vector3.Distance(stairPos, Vector3.zero);
+            if (dist > largestDist)
+            {
+                largestDist = dist;
+                currentPos = stairPos;
+            }
+        }
+
+        InstatiateWorldTile(tile, currentPos, _parent, _level);
+    }
+
     public void InstatiateWorldTile(GameObject _tileObject, Vector3 _spawnPos, Transform _transform, int _level)
     {
         GameObject m_TileGo = Instantiate(_tileObject, _spawnPos, Quaternion.identity);
@@ -78,17 +110,6 @@ public class WorldInstance : MonoBehaviour {
         Vector3 tileKey = new Vector3(_spawnPos.x, _spawnPos.y, _level);
         bool m_TileHasCollider = (m_TileGo.GetComponent<Collider2D>() != null);
         m_MapTileData[tileKey] = new Tile(m_TileGo, m_SpriteRenderer, _tileObject.name, m_TileHasCollider);
-    }
-
-    public int GetCurrentLevel()
-    {
-        return m_CurrentLevel;
-    }
-
-    public int SetCurrentLevel(int _level)
-    {
-        m_CurrentLevel = _level;
-        return m_CurrentLevel;
     }
 
     public bool isCoordInMapTileData(Vector3 coord)

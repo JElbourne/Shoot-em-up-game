@@ -18,9 +18,13 @@ public class RoomGeneration : MonoBehaviour {
 	[SerializeField]
 	ColorToGameObject[] mappings;
 
-    public GameObject floorTile;
+    [SerializeField]
+    GameObject floorTile;
 
-	Vector2 roomSizeInTiles = new Vector2(17,9);
+    [SerializeField]
+    Color stairColor;
+
+    Vector2 roomSizeInTiles = new Vector2(17,9);
 
     WorldInstance m_WorldInstance;
     Transform m_RoomRootTransform;
@@ -77,7 +81,8 @@ public class RoomGeneration : MonoBehaviour {
             m_WorldInstance.InstatiateWorldTile(doorWall, _spawnPos, m_RoomRootTransform, level);
 		}
 	}
-	void GenerateRoomTiles(){
+
+    void GenerateRoomTiles(){
 		//loop through every pixel of the texture
 		for(int x = 0; x < tex.width; x++){
 			for (int y = 0; y < tex.height; y++){
@@ -85,19 +90,30 @@ public class RoomGeneration : MonoBehaviour {
 			}
 		}
 	}
+
 	void GenerateTile(int x, int y){
 		Color pixelColor = tex.GetPixel(x,y);
         Vector3 spawnPos = positionFromTileGrid(x, y);
-        //skip clear spaces in texture
+        
+
         if (pixelColor.a == 0){
+            //clear spaces are the floor tiles
             m_WorldInstance.InstatiateWorldTile(floorTile, spawnPos, m_RoomRootTransform, level);
-        }
-		//find the color to math the pixel
-		foreach (ColorToGameObject mapping in mappings){
-			if (mapping.color.Equals(pixelColor)){
-                m_WorldInstance.InstatiateWorldTile(mapping.prefab, spawnPos, m_RoomRootTransform, level);
+        } else if (stairColor.Equals(pixelColor) )
+        {
+            //find any potential stair locations
+            m_WorldInstance.potentialStairLocations.Add(spawnPos);
+        } else
+        {
+            //find the color to math the pixel
+            foreach (ColorToGameObject mapping in mappings)
+            {
+                if (mapping.color.Equals(pixelColor))
+                {
+                    m_WorldInstance.InstatiateWorldTile(mapping.prefab, spawnPos, m_RoomRootTransform, level);
+                }
             }
-		}
+        }
 	}
 	Vector3 positionFromTileGrid(int x, int y){
 		//find difference between the corner of the texture and the center of this object

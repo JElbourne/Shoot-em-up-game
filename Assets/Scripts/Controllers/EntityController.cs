@@ -5,6 +5,8 @@ public class EntityController : MonoBehaviour {
     GameController m_Game;
 
     public float maxSpeed = 5f;
+    public float accelerationTime = .1f;
+
     public int lightLevel = 0;
     public int level = 1;
     public bool limitedLighting = false;

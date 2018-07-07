@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 114761686898236950}
   - component: {fileID: 114634828313858138}
   - component: {fileID: 114223467557600792}
+  - component: {fileID: 114244175156186536}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -202,7 +203,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1334643301676014}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -357,6 +358,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a881ba5293f8ac24cb89fb856fe31c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114244175156186536
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1334643301676014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf2d6d9f37ef3e148ac01e40b3dfc699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 1
+  skinWidth: 0.015
+  horizontalRayCount: 0
+  verticalRayCount: 0
+  horizontalRaySpacing: 0
+  verticalRaySpacing: 0
+  collider: {fileID: 0}
 --- !u!114 &114634828313858138
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -394,8 +415,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb227abb5c92b24483927e7da28743b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5
-  lightLevel: 4
+  maxSpeed: 25
+  accelerationTime: 0.1
+  lightLevel: 8
   level: 1
   limitedLighting: 0
 --- !u!114 &114949064689573686
@@ -450,7 +472,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 168c33633e1ae8544a40cddf7c9dd117, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8784314, g: 0.972549, b: 0.8156863, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -495,7 +517,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 168c33633e1ae8544a40cddf7c9dd117, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8784314, g: 0.972549, b: 0.8156863, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

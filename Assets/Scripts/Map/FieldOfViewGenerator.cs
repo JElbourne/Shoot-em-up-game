@@ -45,7 +45,8 @@ public class FieldOfViewGenerator : MonoBehaviour {
             int[] entityTileCoord = entity.getTileCoord();
             if (entity.lightLevel <= 0)
             {
-                m_EntityCoords[entityGo.transform.position] = entityGo;
+                continue;
+                // m_EntityCoords[entityGo.transform.position] = entityGo;
             } else
             {
                 m_LightLevel = entity.lightLevel;
