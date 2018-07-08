@@ -95,6 +95,7 @@ public class RoomGeneration : MonoBehaviour {
 		Color pixelColor = tex.GetPixel(x,y);
         Vector3 spawnPos = positionFromTileGrid(x, y);
         
+        
 
         if (pixelColor.a == 0){
             //clear spaces are the floor tiles
@@ -102,6 +103,7 @@ public class RoomGeneration : MonoBehaviour {
         } else if (stairColor.Equals(pixelColor) )
         {
             //find any potential stair locations
+            spawnPos.z = level;
             m_WorldInstance.potentialStairLocations.Add(spawnPos);
         } else
         {

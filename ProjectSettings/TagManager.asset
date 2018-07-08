@@ -19,12 +19,12 @@ TagManager:
   - Bullet
   - Bounds
   - Map
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - WallTile
+  - DistructableTile
+  - ObjectTile
+  - ItremTile
+  - FloorTile
+  - StairTile
   - 
   - 
   - 

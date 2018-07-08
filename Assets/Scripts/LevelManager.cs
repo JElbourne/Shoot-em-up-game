@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour {
     public string WinSceneName = "WinScene";
     public Image transitionPanel;
     public TextMeshProUGUI transitionText;
+    public TextMeshProUGUI miniMapLevelText;
     public float fadeStepDuration = 0.5f;
     public float textDisplayDuration = 1f;
 
@@ -21,8 +22,8 @@ public class LevelManager : MonoBehaviour {
 
     public void ChangeLevel(int _newLevel)
     {
+        Debug.Log("Change Level to: " + _newLevel);
         m_NextLevel = _newLevel;
-
         //SwitchActiveLevel();
         StartCoroutine("LevelTransition");
     }
@@ -34,8 +35,10 @@ public class LevelManager : MonoBehaviour {
 
     public void EnableLevelText()
     {
-        transitionText.SetText("Level " + m_NextLevel);
+        string newLevelText = "Level " + m_NextLevel;
+        transitionText.SetText(newLevelText);
         transitionText.enabled = true;
+        miniMapLevelText.SetText(newLevelText);
     }
 
     IEnumerator WinTransition()
@@ -47,7 +50,6 @@ public class LevelManager : MonoBehaviour {
 
     IEnumerator LevelTransition()
     {
-
         yield return StartCoroutine("FadeOut");
         EnableLevelText();
         yield return StartCoroutine("SwitchActiveLevel");

@@ -6,6 +6,7 @@ public class FieldOfViewGenerator : MonoBehaviour {
 
     GameController m_Game;
     WorldInstance m_World;
+    PlayerController m_PlayerController;
     Dictionary<Vector3, float> m_LitCoords = new Dictionary<Vector3, float>();
     Dictionary<Vector3, GameObject> m_EntityCoords = new Dictionary<Vector3, GameObject>();
 
@@ -22,7 +23,7 @@ public class FieldOfViewGenerator : MonoBehaviour {
 
     private void Start()
     {
-        m_mMapLevel = FindObjectOfType<PlayerController>().level;
+        m_mMapLevel = m_World.currentLevel;
     }
 
     public bool isTileLit(Vector3 coord)
@@ -38,7 +39,7 @@ public class FieldOfViewGenerator : MonoBehaviour {
     public void GenerateFOV()
     {
         ClearFOV();
-
+        m_mMapLevel = m_World.currentLevel;
         foreach (GameObject entityGo in m_Game.entities)
         {
             EntityController entity = entityGo.GetComponent<EntityController>();

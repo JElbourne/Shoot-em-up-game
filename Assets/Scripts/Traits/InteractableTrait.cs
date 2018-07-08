@@ -7,6 +7,7 @@ public class InteractableTrait : MonoBehaviour {
 
     public void Interact()
     {
+        Debug.Log("Invoking Action");
         action.Invoke();
     }
 }

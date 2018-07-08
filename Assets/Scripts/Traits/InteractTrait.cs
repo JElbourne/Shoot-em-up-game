@@ -29,11 +29,10 @@ public class InteractTrait : MonoBehaviour {
 
         if (hit)
         {
-            Debug.Log("Interact Hit");
             InteractableTrait interactable = hit.collider.gameObject.GetComponent<InteractableTrait>();
             if(interactable)
             {
-
+                // Debug.Log("Interact Hit");
                 interactable.Interact();
             }
         }
@@ -44,7 +43,6 @@ public class InteractTrait : MonoBehaviour {
         if (m_MoveTrait)
         {
             m_FacingDirection = m_MoveTrait.GetCurrentDirection();
-            Debug.Log(m_FacingDirection);
         }
 
         Bounds bounds = m_Collider.bounds;

@@ -86,13 +86,17 @@ public class WorldInstance : MonoBehaviour {
         Vector3 currentPos = Vector3.zero;
         GameObject tile = (_exit) ? exitTile : stairTile;
 
-        foreach (Vector3 stairPos in potentialStairLocations)
+        foreach (Vector3 stairCoord in potentialStairLocations)
         {
-            float dist = Vector3.Distance(stairPos, Vector3.zero);
-            if (dist > largestDist)
+            if (stairCoord.z == _level) // make sure we only look at the stair locations for the current Level. 
             {
-                largestDist = dist;
-                currentPos = stairPos;
+                Vector3 stairPos = new Vector3(stairCoord.x, stairCoord.y, 0f); // Reset the z coord back to 0. 
+                float dist = Vector3.Distance(stairPos, Vector3.zero);
+                if (dist > largestDist)
+                {
+                    largestDist = dist;
+                    currentPos = stairPos;
+                }
             }
         }
 
