@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour {
 
-    public GameObject target;
-
     MoveTrait m_MoveTrait;
     FireTrait m_FireTrait;
     FaceTargetTrait m_FaceTargetTrait;
     InteractTrait m_InteractTrait;
     PlayerController m_PlayerController;
 
-    // Use this for initialization
-    void Start () {
-        m_MoveTrait = target.GetComponent<MoveTrait>();
-        m_FaceTargetTrait = target.GetComponent<FaceTargetTrait>();
-        m_FireTrait = target.GetComponentInChildren<FireTrait>();
-        m_InteractTrait = target.GetComponentInChildren<InteractTrait>();
-        m_PlayerController = target.GetComponent<PlayerController>();
+    public void SetupInput (GameObject _target) {
+        m_MoveTrait = _target.GetComponent<MoveTrait>();
+        m_FaceTargetTrait = _target.GetComponent<FaceTargetTrait>();
+        m_FireTrait = _target.GetComponentInChildren<FireTrait>();
+        m_InteractTrait = _target.GetComponentInChildren<InteractTrait>();
+        m_PlayerController = _target.GetComponent<PlayerController>();
     }
 	
 	// Update is called once per frame

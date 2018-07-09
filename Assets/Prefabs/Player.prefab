@@ -52,13 +52,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4860306532278400}
   - component: {fileID: 114944720528160494}
-  - component: {fileID: 50255911429161442}
+  - component: {fileID: 114244175156186536}
   - component: {fileID: 61857054100382186}
   - component: {fileID: 114046912639000488}
   - component: {fileID: 114761686898236950}
   - component: {fileID: 114634828313858138}
   - component: {fileID: 114223467557600792}
-  - component: {fileID: 114244175156186536}
+  - component: {fileID: 114108046043767396}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -196,26 +196,6 @@ Transform:
   m_Father: {fileID: 4436588464807334}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50255911429161442
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1334643301676014}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 0.1444
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!61 &61857054100382186
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -261,7 +241,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -347,6 +327,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52541904a214d194ba5a5d9a3e9757a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114108046043767396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1334643301676014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4170cf22f2b8024aaa706ba97b3f396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinWidth: 0.015
+  rayLength: 0.5
 --- !u!114 &114223467557600792
 MonoBehaviour:
   m_ObjectHideFlags: 1
