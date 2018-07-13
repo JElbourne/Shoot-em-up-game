@@ -14,7 +14,7 @@ public class InventoryController : MonoBehaviour {
             Debug.LogWarning("More than one instance of Inventory Found!");
             return;
         }
-            instance = this;
+        instance = this;
     }
     #endregion
 

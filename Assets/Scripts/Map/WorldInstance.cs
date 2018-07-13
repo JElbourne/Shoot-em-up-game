@@ -5,8 +5,8 @@ using UnityEngine;
 public class WorldInstance : MonoBehaviour {
 
     public Vector2 worldSize = new Vector2(8, 8); // Grid Size that holds individual rooms.
-    public int roomTilesWide = 17;
-    public int roomTilesHigh = 9;
+    public int roomTilesWide = 34;
+    public int roomTilesHigh = 18;
     public int numberOfLevels = 1;
 
     [HideInInspector]
@@ -26,17 +26,31 @@ public class WorldInstance : MonoBehaviour {
     
     Dictionary<Vector3, Tile> m_MapTileData = new Dictionary<Vector3, Tile>();
 
+    #region Singleton
+    public static WorldInstance instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of Inventory Found!");
+            return;
+        }
+        instance = this;
+    }
+    #endregion
+
     public void Setup()
     {
         for(int i = 0; i < numberOfLevels; i++)
         {
             GameObject m_LevelGo = new GameObject("LevelRoot_" + (i + 1));
             m_LevelGo.transform.parent = transform;
-            GameObject m_MiniMapGo = new GameObject("MiniMapRoot");
+            GameObject m_MiniMapGo = new GameObject("MiniMapRoot_" + (i + 1));
             m_MiniMapGo.transform.parent = m_LevelGo.transform;
 
             LevelGeneration m_LevelGen = GetComponent<LevelGeneration>();
-            m_LevelGen.Setup(worldSize, i + 1, m_MiniMapGo.transform);
+            m_LevelGen.Setup(worldSize, m_MiniMapGo.transform);
             levelsData[i + 1] = m_LevelGo;
 
             AddRoomsToWorld(m_LevelGo, m_LevelGen.levelRooms, i+1);
@@ -103,10 +117,9 @@ public class WorldInstance : MonoBehaviour {
         InstatiateWorldTile(tile, currentPos, _parent, _level);
     }
 
-    public void InstatiateWorldTile(GameObject _tileObject, Vector3 _spawnPos, Transform _transform, int _level)
+    public void InstatiateWorldTile(GameObject _tileObject, Vector3 _spawnPos, Transform _parentTransform, int _level)
     {
-        GameObject m_TileGo = Instantiate(_tileObject, _spawnPos, Quaternion.identity);
-        m_TileGo.transform.parent = _transform;
+        GameObject m_TileGo = Instantiate(_tileObject, _spawnPos, Quaternion.identity, _parentTransform);
         SpriteRenderer m_SpriteRenderer = m_TileGo.GetComponent<SpriteRenderer>();
         // m_SpriteRenderer.enabled = false;
         m_SpriteRenderer.color = new Color(1f, 1f, 1f, 0f);
@@ -119,6 +132,13 @@ public class WorldInstance : MonoBehaviour {
     public bool isCoordInMapTileData(Vector3 coord)
     {
         return m_MapTileData.ContainsKey(coord);
+    }
+
+    public int[] getTileCoord(Transform _transform)
+    {
+        int posX = Mathf.RoundToInt(_transform.position.x);
+        int posY = Mathf.RoundToInt(_transform.position.y);
+        return new int[2] { posX, posY };
     }
 
     public Tile getMapTileData(Vector3 coord)

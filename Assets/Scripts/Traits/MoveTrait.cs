@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CollisionTrait))]
-[RequireComponent(typeof(EntityController))]
+[RequireComponent(typeof(CharacterStats))]
 public class MoveTrait : MonoBehaviour {
 
-    EntityController m_EntityController;
+    CharacterStats m_CharacterStats;
     CollisionTrait m_CollisionTrait;
     Vector2 m_CurrentDirection;
     float velocityXSmoothing;
@@ -15,7 +15,7 @@ public class MoveTrait : MonoBehaviour {
 
     private void Awake()
     {
-        m_EntityController = GetComponent<EntityController>();
+        m_CharacterStats = GetComponent<CharacterStats>();
         m_CollisionTrait = GetComponent<CollisionTrait>(); 
     }
 
@@ -31,10 +31,10 @@ public class MoveTrait : MonoBehaviour {
 
     public void Move(Vector2 _input, bool _rotatePosition = false)
     {
-        if (m_EntityController)
+        if (m_CharacterStats)
         {
-            float maxSpeed = m_EntityController.maxSpeed;
-            float accelerationTime = m_EntityController.accelerationTime;
+            float maxSpeed = m_CharacterStats.maxSpeed.getValue();
+            float accelerationTime = m_CharacterStats.accelerationTime;
             Move(maxSpeed, accelerationTime, _input, _rotatePosition);
         }
     }

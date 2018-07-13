@@ -6,7 +6,6 @@ public class FieldOfViewGenerator : MonoBehaviour {
 
     GameController m_Game;
     WorldInstance m_World;
-    PlayerController m_PlayerController;
     Dictionary<Vector3, float> m_LitCoords = new Dictionary<Vector3, float>();
     //Dictionary<Vector3, GameObject> m_EntityCoords = new Dictionary<Vector3, GameObject>();
 
@@ -42,15 +41,18 @@ public class FieldOfViewGenerator : MonoBehaviour {
         m_mMapLevel = m_World.currentLevel;
         foreach (GameObject entityGo in m_Game.entities)
         {
-            EntityController entity = entityGo.GetComponent<EntityController>();
-            int[] entityTileCoord = entity.getTileCoord();
-            if (entity.lightLevel <= 0)
+            CharacterStats entity = entityGo.GetComponent<CharacterStats>();
+            if (entity == null)
+                continue;
+
+            int[] entityTileCoord = WorldInstance.instance.getTileCoord(entityGo.transform);
+            if (entity.lightLevel.getValue() <= 0)
             {
                 continue;
                 // m_EntityCoords[entityGo.transform.position] = entityGo;
             } else
             {
-                m_LightLevel = entity.lightLevel;
+                m_LightLevel = entity.lightLevel.getValue();
                 SetupMulti(entity.limitedLighting, entityGo);
 
                 for( int section = 0; section < m_VisionSections; section++)
@@ -135,7 +137,6 @@ public class FieldOfViewGenerator : MonoBehaviour {
             if (tile != null)
             {
                 tile.SetOpacity(0f);
-                // tile.DisableVisible();
             } 
         }
         m_LitCoords.Clear();
@@ -149,7 +150,6 @@ public class FieldOfViewGenerator : MonoBehaviour {
             if (tile != null)
             {
                 tile.SetOpacity(m_LitCoords[coord]);
-                //tile.EnableVisible();
             }   
         }
     }
@@ -197,13 +197,13 @@ public class FieldOfViewGenerator : MonoBehaviour {
                 {
                     if ((dx*dx + dy*dy) < radiusSquared)
                     {
-                        if ((dx * dx + dy * dy) > 14)
+                        if ((dx * dx + dy * dy) > _radius*2)
                         {
                             m_Opacity = 20f;
-                        } else if ((dx * dx + dy * dy) > 12)
+                        } else if ((dx * dx + dy * dy) > _radius * 1.5)
                         {
                             m_Opacity = 40f;
-                        } else if ((dx * dx + dy * dy) > 10)
+                        } else if ((dx * dx + dy * dy) > _radius)
                         {
                             m_Opacity = 60f;
                         } else

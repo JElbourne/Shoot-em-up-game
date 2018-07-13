@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour {
     UIController m_UIController;
     InputController m_InputController;
     WorldInstance m_World;
+    GameObject m_MiniMapGo;
 
     public enum gameState
     {
@@ -53,11 +54,11 @@ public class GameController : MonoBehaviour {
 
     public void StartGame()
     {
-        GameObject m_PlayerGo = Instantiate(player, Vector3.zero, Quaternion.identity);
-        GameObject m_MiniMapGo = Instantiate(miniMap, Vector3.zero, Quaternion.identity, cameraHolder.transform);
-        cameraHolder.GetComponent<CameraFollow>().target = m_PlayerGo.transform;
-        m_MiniMapGo.GetComponent<CameraFollow>().target = m_PlayerGo.transform;
-        m_InputController.SetupInput(m_PlayerGo);
+        // Add intial prefabs to the game.
+        AddMinimap();
+        AddPlayer(); 
+        
+        // Set the current Game State
         currentGameState = gameState.pilot;
     }
 
@@ -76,6 +77,27 @@ public class GameController : MonoBehaviour {
     {
         m_UIController.gameOverScreen.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void AddMinimap()
+    {
+        m_MiniMapGo = Instantiate(miniMap, Vector3.zero, Quaternion.identity, cameraHolder.transform);
+    }
+
+    private void AddPlayer()
+    {
+        // Instantiate the player prefab
+        GameObject m_PlayerGo = Instantiate(player, Vector3.zero, Quaternion.identity);
+
+        // Setup the input controller for the player as a target
+        m_InputController.SetupInput(m_PlayerGo);
+        
+        // Setup targets on the cameras
+        cameraHolder.GetComponent<CameraFollow>().target = m_PlayerGo.transform;
+        m_MiniMapGo.GetComponent<CameraFollow>().target = m_PlayerGo.transform;
+
+        // Add player to the entities list
+        entities.Add(m_PlayerGo);
     }
 
 }

@@ -9,9 +9,9 @@ public class EquipmentController : MonoBehaviour {
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance != null)
         {
-            Debug.LogWarning("Equipment Controller instance not setup");
+            Debug.LogWarning("More than one instance of Equipment Controller Found!");
             return;
         }
         instance = this;

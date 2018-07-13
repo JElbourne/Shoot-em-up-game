@@ -69,18 +69,26 @@ public class RoomGeneration : MonoBehaviour {
 
 	void MakeDoors(){
 		//top door, get position then spawn
-		Vector3 spawnPos = m_RoomRootTransform.position + Vector3.up*(roomSizeInTiles.y/2) - Vector3.up*(0.5f);
-		PlaceDoor(spawnPos, doorTop, doorU);
-		//bottom door
-		spawnPos = m_RoomRootTransform.position + Vector3.down*(roomSizeInTiles.y/2) - Vector3.down*(0.5f);
-		PlaceDoor(spawnPos, doorBot, doorD);
-		//right door
-		spawnPos = m_RoomRootTransform.position + Vector3.right*(roomSizeInTiles.x/2) - Vector3.right * (0.5f);
-		PlaceDoor(spawnPos, doorRight, doorR);
-		//left door
-		spawnPos = m_RoomRootTransform.position + Vector3.left*(roomSizeInTiles.x/2) - Vector3.left * (0.5f);
-		PlaceDoor(spawnPos, doorLeft, doorL);
-	}
+		Vector3 spawnPos1 = m_RoomRootTransform.position + (Vector3.up * (roomSizeInTiles.y / 2) - Vector3.up);
+        Vector3 spawnPos2 = spawnPos1 - Vector3.right;
+        PlaceDoor(spawnPos1, doorTop, doorU);
+        PlaceDoor(spawnPos2, doorTop, doorU);
+        //bottom door
+        spawnPos1 = m_RoomRootTransform.position + (Vector3.down * (roomSizeInTiles.y / 2));
+        spawnPos2 = spawnPos1 - Vector3.right;
+        PlaceDoor(spawnPos1, doorBot, doorD);
+        PlaceDoor(spawnPos2, doorBot, doorD);
+        //right door
+        spawnPos1 = m_RoomRootTransform.position + Vector3.right * (roomSizeInTiles.x / 2) - Vector3.right;
+        spawnPos2 = spawnPos1 - Vector3.up;
+		PlaceDoor(spawnPos1, doorRight, doorR);
+        PlaceDoor(spawnPos2, doorRight, doorR);
+        //left door
+        spawnPos1 = m_RoomRootTransform.position + Vector3.left * (roomSizeInTiles.x / 2);
+        spawnPos2 = spawnPos1 - Vector3.up;
+		PlaceDoor(spawnPos1, doorLeft, doorL);
+        PlaceDoor(spawnPos2, doorLeft, doorL);
+    }
 	void PlaceDoor(Vector3 _spawnPos, bool _door, GameObject _doorSpawn){
 		// check whether its a door or wall, then spawn
 		if (_door){
@@ -127,7 +135,7 @@ public class RoomGeneration : MonoBehaviour {
 	}
 	Vector3 positionFromTileGrid(int x, int y){
 		//find difference between the corner of the texture and the center of this object
-		Vector3 offset = new Vector3(-(roomSizeInTiles.x/2) + 0.5f, -(roomSizeInTiles.y/2) + 0.5f, 0);
+		Vector3 offset = new Vector3(-(roomSizeInTiles.x/2), -(roomSizeInTiles.y/2), 0);
         //find scaled up position at the offset
         Vector3 pos = new Vector3(x,y,0) + offset + m_RoomRootTransform.position;
 		return pos;

@@ -84,7 +84,6 @@ public class LevelManager : MonoBehaviour {
             m_WorldInstance.levelsData[m_WorldInstance.currentLevel].SetActive(false);
             m_WorldInstance.levelsData[m_NextLevel].SetActive(true);
             m_WorldInstance.currentLevel = m_NextLevel;
-            FindObjectOfType<PlayerController>().ChangeLevel(m_NextLevel);
         }
 
         yield return new WaitForSeconds(textDisplayDuration);

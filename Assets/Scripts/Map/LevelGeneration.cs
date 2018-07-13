@@ -10,15 +10,17 @@ public class LevelGeneration : MonoBehaviour {
 
     public Room[,] levelRooms;
     public GameObject roomWhiteObj;
-    public int levelIndex;
-    public int roomSpriteWidth = 17;
-    public int roomSpriteHeight = 9;
 
-    public void Setup(Vector2 _WorldSize, int _levelIndex, Transform _miniMapTransform) {
+    int m_RoomSpriteWidth;
+    int m_RoomSpriteHeight;
+
+    public void Setup(Vector2 _WorldSize, Transform _miniMapTransform) {
+
+        m_RoomSpriteWidth = WorldInstance.instance.roomTilesWide;
+        m_RoomSpriteHeight = WorldInstance.instance.roomTilesHigh;
 
         m_TakenPositions.Clear();
 
-        levelIndex = _levelIndex;
         m_MiniMapTransform = _miniMapTransform;
 
         if (m_NumberOfRooms >= (_WorldSize.x) * (_WorldSize.y)){ // make sure we dont try to make more rooms than can fit in our grid
@@ -146,8 +148,8 @@ public class LevelGeneration : MonoBehaviour {
 				continue; //skip where there is no room
 			}
 			Vector2 drawPos = room.gridPos;
-			drawPos.x *= roomSpriteWidth;//aspect ratio of map sprite
-			drawPos.y *= roomSpriteHeight;
+			drawPos.x *= m_RoomSpriteWidth;//aspect ratio of map sprite
+			drawPos.y *= m_RoomSpriteHeight;
 			//create map obj and assign its variables
 			MapSpriteSelector mapper = Object.Instantiate(roomWhiteObj, drawPos, Quaternion.identity).GetComponent<MapSpriteSelector>();
 			mapper.type = room.type;
