@@ -8,7 +8,7 @@ public class FieldOfViewGenerator : MonoBehaviour {
     WorldInstance m_World;
     PlayerController m_PlayerController;
     Dictionary<Vector3, float> m_LitCoords = new Dictionary<Vector3, float>();
-    Dictionary<Vector3, GameObject> m_EntityCoords = new Dictionary<Vector3, GameObject>();
+    //Dictionary<Vector3, GameObject> m_EntityCoords = new Dictionary<Vector3, GameObject>();
 
     int m_VisionSections = 8;
     int m_LightLevel = 1;

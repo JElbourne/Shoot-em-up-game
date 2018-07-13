@@ -4,25 +4,15 @@ using UnityEngine;
 
 public class KillableTrait : MonoBehaviour {
 
-    public float health = 20f;
+    PlayerStats m_PlayerStats;
 
-    public void Damage(float damage)
+    private void Awake()
     {
-        health -= damage;
-        // Debug.Log("Current Health: " + health);
-        if (health <= 0)
-            Die();
+        m_PlayerStats = GetComponent<PlayerStats>();
     }
 
-    void Die()
+    public void Damage(int damage)
     {
-        if (gameObject.tag == "Player")
-        {
-            FindObjectOfType<GameController>().EndGame();
-        } else
-        {
-            Destroy(gameObject);
-        }
-        
+        m_PlayerStats.TakeDamage(damage);
     }
 }

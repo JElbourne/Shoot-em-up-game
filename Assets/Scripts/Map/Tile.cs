@@ -21,6 +21,11 @@ public class Tile {
         return m_SpriteRenderer.enabled;
     }
 
+    public string getName()
+    {
+        return m_Name;
+    }
+
     public void ToggleVisible()
     {
         if(m_SpriteRenderer.enabled)

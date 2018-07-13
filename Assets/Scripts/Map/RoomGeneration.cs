@@ -12,8 +12,16 @@ public class RoomGeneration : MonoBehaviour {
 	[HideInInspector]
 	public bool doorTop, doorBot, doorLeft, doorRight;
 
-	[SerializeField]
-	GameObject doorU, doorD, doorL, doorR, doorWall;
+    [SerializeField]
+    GameObject doorU;
+    [SerializeField]
+    GameObject doorD;
+    [SerializeField]
+    GameObject doorL;
+    [SerializeField]
+    GameObject doorR;
+    [SerializeField]
+    GameObject doorWall;
 
 	[SerializeField]
 	ColorToGameObject[] mappings;

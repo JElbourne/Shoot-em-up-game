@@ -5,13 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class InteractTrait : MonoBehaviour {
 
+    public LayerMask interatableMask;
+
     public float skinWidth = 0.015f;
     public float rayLength = 0.5f;
     
     BoxCollider2D m_Collider;
     MoveTrait m_MoveTrait;
     Vector2 m_FacingDirection = new Vector2(1,0);
-    List<Vector2> m_RayOrigins = new List<Vector2>();
 
     private void Awake()
     {
@@ -23,7 +24,7 @@ public class InteractTrait : MonoBehaviour {
     {
         Vector2[] rayVectors = SetRaycastOrigins();
 
-        RaycastHit2D hit = Physics2D.Raycast(rayVectors[0], rayVectors[1], rayLength);
+        RaycastHit2D hit = Physics2D.Raycast(rayVectors[0], rayVectors[1], rayLength, interatableMask);
 
         Debug.DrawRay(rayVectors[0], rayVectors[1], Color.blue);
 

@@ -22,10 +22,10 @@ TagManager:
   - WallTile
   - DistructableTile
   - ObjectTile
-  - ItremTile
+  - ItemTile
   - FloorTile
   - StairTile
-  - 
+  - Interactable
   - 
   - 
   - 

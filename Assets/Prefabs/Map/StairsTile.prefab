@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 212515349357544726}
   - component: {fileID: 114004468401693510}
   - component: {fileID: 61196603456725736}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: StairsTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

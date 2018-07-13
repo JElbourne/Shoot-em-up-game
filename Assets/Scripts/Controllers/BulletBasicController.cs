@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletBasicController : MonoBehaviour {
     MoveTrait m_MoveTrait;
-    public float damage = 1f;
+    public int damage = 1;
     public float maxSpeed = 50f;
     public float accelerationTime = 0.1f;
 

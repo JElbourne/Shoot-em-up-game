@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour {
     public float restartDelay = 1.0f;
     public GameObject player;
     public GameObject cameraHolder;
-    public Camera miniMapCamera;
+    public GameObject miniMap;
 
     UIController m_UIController;
     InputController m_InputController;
@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour {
         m_World = FindObjectOfType<WorldInstance>();
         m_UIController = FindObjectOfType<UIController>();
         m_InputController = FindObjectOfType<InputController>();
+
     }
     private void Start()
     {
@@ -53,8 +54,9 @@ public class GameController : MonoBehaviour {
     public void StartGame()
     {
         GameObject m_PlayerGo = Instantiate(player, Vector3.zero, Quaternion.identity);
+        GameObject m_MiniMapGo = Instantiate(miniMap, Vector3.zero, Quaternion.identity, cameraHolder.transform);
         cameraHolder.GetComponent<CameraFollow>().target = m_PlayerGo.transform;
-        miniMapCamera.GetComponent<CameraFollow>().target = m_PlayerGo.transform;
+        m_MiniMapGo.GetComponent<CameraFollow>().target = m_PlayerGo.transform;
         m_InputController.SetupInput(m_PlayerGo);
         currentGameState = gameState.pilot;
     }
