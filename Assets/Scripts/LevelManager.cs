@@ -15,18 +15,35 @@ public class LevelManager : MonoBehaviour {
 
     int m_NextLevel;
 
+    #region Singleton
+    public static LevelManager instance;
+
     private void Awake()
     {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of Level Manager!");
+            return;
+        }
+        instance = this;
+
         m_WorldInstance = FindObjectOfType<WorldInstance>();
     }
+    #endregion
 
     public void ChangeLevel(int _newLevel)
     {
         Debug.Log("Change Level to: " + _newLevel);
         m_NextLevel = _newLevel;
-        //SwitchActiveLevel();
         StartCoroutine("LevelTransition");
     }
+
+    public void StartGame(int _newLevel)
+    {
+        m_NextLevel = _newLevel;
+        StartCoroutine("StartGameTransition");
+    }
+
 
     public void WinGame()
     {
@@ -46,6 +63,16 @@ public class LevelManager : MonoBehaviour {
         yield return StartCoroutine("FadeOut");
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(WinSceneName);
+    }
+
+    IEnumerator StartGameTransition()
+    {
+        transitionPanel.canvasRenderer.SetAlpha(1f);
+        transitionPanel.enabled = true;
+        yield return new WaitForSeconds(fadeStepDuration);
+        EnableLevelText();
+        yield return new WaitForSeconds(fadeStepDuration);
+        yield return StartCoroutine("FadeIn");
     }
 
     IEnumerator LevelTransition()

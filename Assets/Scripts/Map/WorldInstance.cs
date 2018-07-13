@@ -33,7 +33,7 @@ public class WorldInstance : MonoBehaviour {
     {
         if (instance != null)
         {
-            Debug.LogWarning("More than one instance of Inventory Found!");
+            Debug.LogWarning("More than one instance of World Instance!");
             return;
         }
         instance = this;

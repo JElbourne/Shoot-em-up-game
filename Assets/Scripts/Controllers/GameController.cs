@@ -60,6 +60,8 @@ public class GameController : MonoBehaviour {
         
         // Set the current Game State
         currentGameState = gameState.pilot;
+
+        LevelManager.instance.StartGame(1);
     }
 
     public void EndGame()
