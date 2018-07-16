@@ -19,8 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4436588464807334}
+  - component: {fileID: 114850733705969078}
   m_Layer: 8
-  m_Name: LeftArm
+  m_Name: TurretPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,9 +56,10 @@ GameObject:
   - component: {fileID: 114244175156186536}
   - component: {fileID: 61857054100382186}
   - component: {fileID: 114046912639000488}
-  - component: {fileID: 114761686898236950}
   - component: {fileID: 114634828313858138}
   - component: {fileID: 114108046043767396}
+  - component: {fileID: 114624784152673124}
+  - component: {fileID: 114836856379806678}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -105,6 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4838134973667636}
   - component: {fileID: 212298667128087238}
+  - component: {fileID: 95230380693070440}
   m_Layer: 8
   m_Name: Visual
   m_TagString: Untagged
@@ -133,7 +136,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1230639272044268}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.65, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4895485507324192}
@@ -148,7 +151,7 @@ Transform:
   m_GameObject: {fileID: 1806733888421288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.75, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4895485507324192}
   m_RootOrder: 0
@@ -315,6 +318,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &95230380693070440
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1989331444012624}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 254809eeea4b1a843b3ad16414462cd4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114046912639000488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -341,7 +362,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 524288
   skinWidth: 0.015
-  rayLength: 0.5
+  defaultRayLength: 0.5
 --- !u!114 &114244175156186536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -373,17 +394,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f237d227ae73404d90a86a644ad1f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth:
+    UseConstant: 0
+    ConstantValue: 100
+    Variable: {fileID: 11400000, guid: 5ee1f966bcefd9341a54e9ec13eccc0b, type: 2}
+  currentHealth:
+    UseConstant: 0
+    ConstantValue: 100
+    Variable: {fileID: 11400000, guid: 937cd8e6cb240624ea5089ce2d432dbc, type: 2}
+  maxArmour:
+    baseValue:
+      UseConstant: 0
+      ConstantValue: 0
+      Variable: {fileID: 11400000, guid: c99a0bf7584fe2d45a4873f787734147, type: 2}
+  currentArmour:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: ba3830541c8be3b41a2229f8b9d4d277, type: 2}
   damage:
-    baseValue: 0
-  armor:
-    baseValue: 0
+    baseValue:
+      UseConstant: 0
+      ConstantValue: 0
+      Variable: {fileID: 11400000, guid: 5a192f9c43ba78e4b99049efa005ac04, type: 2}
+  intelligence:
+    baseValue:
+      UseConstant: 0
+      ConstantValue: 0
+      Variable: {fileID: 11400000, guid: fd4c7193a7f04f846be7203ef9d4292e, type: 2}
   lightLevel:
-    baseValue: 21
+    baseValue:
+      UseConstant: 0
+      ConstantValue: 0
+      Variable: {fileID: 11400000, guid: b344cac995f02d94eb2b845faba7a361, type: 2}
   limitedLighting: 0
   maxSpeed:
-    baseValue: 40
+    baseValue:
+      UseConstant: 0
+      ConstantValue: 0
+      Variable: {fileID: 11400000, guid: 9288fc1c7ecbb844cb0ba1c50f28c7b3, type: 2}
   accelerationTime: 0.1
+  maxHunger:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 31fc06f2e1fc142418523d4903934d1f, type: 2}
+  currentHunger:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 7cc2263634a21fa4db9446a035c3aaf9, type: 2}
+  maxPower:
+    baseValue:
+      UseConstant: 0
+      ConstantValue: 0
+      Variable: {fileID: 11400000, guid: e64854105822d9e4188e809c52f6a1c4, type: 2}
+  currentPower:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 38dd99cac5c0b9a48a10ce71f7301250, type: 2}
+--- !u!114 &114624784152673124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1334643301676014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4902f35fdda0aaf44b85329c51722abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distancePerPowerUnit: 10
 --- !u!114 &114634828313858138
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -395,7 +473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f63737e9e4b7e948adc693e5feb6fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114761686898236950
+--- !u!114 &114836856379806678
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -403,12 +481,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334643301676014}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 811e22af951db004b8b5ef8c2b01cc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  regenerationRate: 10
+  costsEnergy: 1
+  energyCost: 1
+--- !u!114 &114850733705969078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1230639272044268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43b08930c8a80e149841d15d28fe6a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rotSpeed: 150
-  targetGameObjects:
-  - {fileID: 1230639272044268}
 --- !u!114 &114949064689573686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -459,9 +549,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1792070565
   m_SortingLayer: 3
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 168c33633e1ae8544a40cddf7c9dd117, type: 3}
-  m_Color: {r: 0.8784314, g: 0.972549, b: 0.8156863, a: 1}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: 1b36c0d8dea856a44a4a2a26d6bb2dd1, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -504,9 +594,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1792070565
   m_SortingLayer: 3
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 168c33633e1ae8544a40cddf7c9dd117, type: 3}
-  m_Color: {r: 0.8784314, g: 0.972549, b: 0.8156863, a: 1}
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 21300008, guid: 1b36c0d8dea856a44a4a2a26d6bb2dd1, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

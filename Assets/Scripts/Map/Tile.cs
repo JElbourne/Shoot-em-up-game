@@ -8,6 +8,8 @@ public class Tile {
     string m_Name;
     bool m_HasCollider;
 
+    public int movementCost = 1;
+
     public Tile(GameObject _tileGo, SpriteRenderer _spriteRenderer, string _name, bool _hasCollider = false)
     {
         m_TileGo = _tileGo;
@@ -56,8 +58,13 @@ public class Tile {
         }
     }
 
-    public bool willBlockLight()
+    public bool hasCollider()
     {
         return m_HasCollider;
+    }
+
+    public Vector3 getCoord()
+    {
+        return m_TileGo.transform.position;
     }
 }

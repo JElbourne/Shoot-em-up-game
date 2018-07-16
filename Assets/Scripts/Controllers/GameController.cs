@@ -4,6 +4,24 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+    #region Singleton
+    public static GameController instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of GameController Found!");
+            return;
+        }
+        instance = this;
+
+        m_World = FindObjectOfType<WorldInstance>();
+        m_UIController = FindObjectOfType<UIController>();
+        m_InputController = FindObjectOfType<InputController>();
+    }
+    #endregion
+
     public List<GameObject> entities = new List<GameObject>();
     public bool lightEntireMap = false;
     public float restartDelay = 1.0f;
@@ -28,13 +46,6 @@ public class GameController : MonoBehaviour {
     [HideInInspector]
     public gameState currentGameState = gameState.menu;
 
-    private void Awake()
-    {
-        m_World = FindObjectOfType<WorldInstance>();
-        m_UIController = FindObjectOfType<UIController>();
-        m_InputController = FindObjectOfType<InputController>();
-
-    }
     private void Start()
     {
         m_World.Setup();
@@ -56,8 +67,8 @@ public class GameController : MonoBehaviour {
     {
         // Add intial prefabs to the game.
         AddMinimap();
-        AddPlayer(); 
-        
+        AddPlayer();
+
         // Set the current Game State
         currentGameState = gameState.pilot;
 

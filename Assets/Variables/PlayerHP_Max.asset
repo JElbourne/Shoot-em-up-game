@@ -8,13 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e72cfe664db81714bae377c74df1680b, type: 3}
-  m_Name: Helmet of Fire
+  m_Script: {fileID: 11500000, guid: 3521bd7ea30d52c4eb4103551abfbd83, type: 3}
+  m_Name: PlayerHP_Max
   m_EditorClassIdentifier: 
-  name: Helmet of Fire
-  icon: {fileID: 0}
-  replacementIcon: {fileID: 0}
-  isDefaultItem: 0
-  equipmentSlot: 0
-  armorModifier: 2
-  damageModifier: 1
+  value: 100

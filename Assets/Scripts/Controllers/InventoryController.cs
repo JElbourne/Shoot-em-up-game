@@ -35,8 +35,11 @@ public class InventoryController : MonoBehaviour {
             }
             items.Add(_item);
 
+            ConsoleUI.instance.UpdateConsoleUI("Added " + _item.name + " to inventory");
+
             if (onItemChangedCallback != null)
             {
+                // Debug.Log("Invoking onItemChangedCallback");
                 onItemChangedCallback.Invoke();
             }
         }
@@ -46,6 +49,9 @@ public class InventoryController : MonoBehaviour {
     public void Remove(Item _item)
     {
         items.Remove(_item);
+
+        ConsoleUI.instance.UpdateConsoleUI("Removed " + _item.name + " from inventory");
+
         if (onItemChangedCallback != null)
         {
             onItemChangedCallback.Invoke();

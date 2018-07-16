@@ -6,22 +6,18 @@ using UnityEngine;
 public class Stat {
 
     [SerializeField]
-    int baseValue;
+    IntReference baseValue;
 
-    private List<int> m_Modifiers = new List<int>();
-
-    public int getValue()
+    public int value
     {
-        int finalValue = baseValue;
-        m_Modifiers.ForEach(x => finalValue += x);
-        return finalValue;
+        get { return baseValue.Value; }
     }
 
     public void AddModifier(int _modifier)
     {
         if(_modifier != 0)
         {
-            m_Modifiers.Add(_modifier);
+            baseValue.Value += _modifier;
         }
     }
 
@@ -29,7 +25,8 @@ public class Stat {
     {
         if (_modifier != 0)
         {
-            m_Modifiers.Remove(_modifier);
+            int tempValue = baseValue.Value - _modifier;
+            baseValue.Value = Mathf.Clamp(tempValue, 0, baseValue.Value);
         }
     }
 

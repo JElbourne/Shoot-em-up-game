@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 212781652560832726}
   - component: {fileID: 61382515590108466}
   m_Layer: 19
-  m_Name: ItemTile
+  m_Name: BatteryPackTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -106,8 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e43daddcf6c27424c9a67fba22966d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 67b8c851e0a65bf47badf00b8ae56f68, type: 2}
-  replacementSprite: {fileID: 21300000, guid: 93dcc3454ffa95b44a7f3b81165ec0a5, type: 3}
+  item: {fileID: 11400000, guid: bba49521e1a1c4240ab933534ed8193a, type: 2}
 --- !u!212 &212781652560832726
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -143,7 +142,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 168c33633e1ae8544a40cddf7c9dd117, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -151,5 +150,5 @@ SpriteRenderer:
   m_Size: {x: 0.2, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0

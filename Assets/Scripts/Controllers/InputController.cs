@@ -10,7 +10,7 @@ public class InputController : MonoBehaviour {
 
     public void SetupInput (GameObject _target) {
         m_MoveTrait = _target.GetComponent<MoveTrait>();
-        m_FaceTargetTrait = _target.GetComponent<FaceTargetTrait>();
+        m_FaceTargetTrait = _target.GetComponentInChildren<FaceTargetTrait>();
         m_FireTrait = _target.GetComponentInChildren<FireTrait>();
         m_InteractTrait = _target.GetComponentInChildren<InteractTrait>();
     }

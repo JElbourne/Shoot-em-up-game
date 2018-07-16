@@ -32,6 +32,9 @@ public class RoomGeneration : MonoBehaviour {
     [SerializeField]
     Color stairColor;
 
+    [SerializeField]
+    Color batteryColor;
+
     Vector2 roomSizeInTiles = new Vector2(17,9);
 
     WorldInstance m_WorldInstance;
@@ -92,9 +95,9 @@ public class RoomGeneration : MonoBehaviour {
 	void PlaceDoor(Vector3 _spawnPos, bool _door, GameObject _doorSpawn){
 		// check whether its a door or wall, then spawn
 		if (_door){
-            m_WorldInstance.InstatiateWorldTile(_doorSpawn, _spawnPos, m_RoomRootTransform, level);
+            m_WorldInstance.InstantiateMapTile(_doorSpawn, _spawnPos, m_RoomRootTransform, level);
 		}else{
-            m_WorldInstance.InstatiateWorldTile(doorWall, _spawnPos, m_RoomRootTransform, level);
+            m_WorldInstance.InstantiateMapTile(doorWall, _spawnPos, m_RoomRootTransform, level);
 		}
 	}
 
@@ -110,25 +113,38 @@ public class RoomGeneration : MonoBehaviour {
 	void GenerateTile(int x, int y){
 		Color pixelColor = tex.GetPixel(x,y);
         Vector3 spawnPos = positionFromTileGrid(x, y);
-        
-        
 
-        if (pixelColor.a == 0){
+
+
+        if (pixelColor.a == 0)
+        {
             //clear spaces are the floor tiles
-            m_WorldInstance.InstatiateWorldTile(floorTile, spawnPos, m_RoomRootTransform, level);
-        } else if (stairColor.Equals(pixelColor) )
+            m_WorldInstance.InstantiateMapTile(floorTile, spawnPos, m_RoomRootTransform, level);
+        }
+        else if (batteryColor.Equals(pixelColor))
+        {
+            // First we will set down the floor tile at the correct coord.
+            m_WorldInstance.InstantiateMapTile(floorTile, spawnPos, m_RoomRootTransform, level);
+
+            // Now register the battery with the world to instantiate based on world criteria
+            spawnPos.z = level;
+            m_WorldInstance.potentialBatteryLocations.Add(spawnPos);
+            
+        }
+        else if (stairColor.Equals(pixelColor))
         {
             //find any potential stair locations
             spawnPos.z = level;
             m_WorldInstance.potentialStairLocations.Add(spawnPos);
-        } else
+        }
+        else
         {
             //find the color to math the pixel
             foreach (ColorToGameObject mapping in mappings)
             {
                 if (mapping.color.Equals(pixelColor))
                 {
-                    m_WorldInstance.InstatiateWorldTile(mapping.prefab, spawnPos, m_RoomRootTransform, level);
+                    m_WorldInstance.InstantiateMapTile(mapping.prefab, spawnPos, m_RoomRootTransform, level);
                 }
             }
         }

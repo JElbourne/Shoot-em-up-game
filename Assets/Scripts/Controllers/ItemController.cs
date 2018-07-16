@@ -1,20 +1,26 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class ItemController : MonoBehaviour {
 
     public Item item;
 
-    public Sprite replacementSprite;
-
+    public void Awake()
+    {
+        if(item)
+        {
+            GetComponent<SpriteRenderer>().sprite = item.sprite;
+        }
+    }
     // Called by an Interactable Trait
     public void Action()
     {
-        Debug.Log("PickedUp: " + item.name);
+        // Debug.Log("PickedUp: " + item.name);
         bool itemAdded = InventoryController.instance.Add(item);
         if (itemAdded)
         {
-            GetComponent<SpriteRenderer>().sprite = replacementSprite;
-            Destroy(GetComponent<InteractableTrait>());
+            WorldInstance.instance.RemoveFromItemsData(transform);
+            Destroy(gameObject);
         }
 
     }

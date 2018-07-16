@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e72cfe664db81714bae377c74df1680b, type: 3}
+  m_Name: Armour
+  m_EditorClassIdentifier: 
+  name: Armour
+  icon: {fileID: 21300016, guid: 1b36c0d8dea856a44a4a2a26d6bb2dd1, type: 3}
+  sprite: {fileID: 0}
+  isDefaultItem: 0
+  equipmentSlotType: 0
+  armorModifier: 2
+  damageModifier: 1
+  lightLevelModifier: 0
+  speedModifier: 0
+  powerModifier: 0

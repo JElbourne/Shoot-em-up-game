@@ -111,6 +111,7 @@ public class LevelManager : MonoBehaviour {
             m_WorldInstance.levelsData[m_WorldInstance.currentLevel].SetActive(false);
             m_WorldInstance.levelsData[m_NextLevel].SetActive(true);
             m_WorldInstance.currentLevel = m_NextLevel;
+            GameObject.FindGameObjectWithTag("Player").transform.position = Vector3.zero;
         }
 
         yield return new WaitForSeconds(textDisplayDuration);

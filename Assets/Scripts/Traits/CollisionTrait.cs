@@ -117,7 +117,7 @@ public class CollisionTrait : MonoBehaviour
                 _velocity.x = (hit.distance - skinWidth) * directionX;
                 rayLength = hit.distance;
 
-                if (hitCount > Mathf.FloorToInt(horizontalRayCount * 0.5f))
+                if (hitCount >= Mathf.FloorToInt(horizontalRayCount * 0.5f))
                 {
                     collisions.left = directionX == -1;
                     collisions.right = directionX == 1;
@@ -131,6 +131,7 @@ public class CollisionTrait : MonoBehaviour
         float directionY = Mathf.Sign(_velocity.y);
         float rayLength = Mathf.Abs(_velocity.y) + skinWidth;
 
+        int hitCount = 0;
         for (int i = 0; i < verticalRayCount; i++)
         {
             Vector2 rayOrigin = (directionY == -1) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
@@ -144,11 +145,21 @@ public class CollisionTrait : MonoBehaviour
 
             if (hit)
             {
+                if (hit.distance == 0)
+                {
+                    continue;
+                }
+
+                hitCount++;
+
                 _velocity.y = (hit.distance - skinWidth) * directionY;
                 rayLength = hit.distance;
 
-                collisions.below = directionY == -1f;
-                collisions.above = directionY == 1f;
+                if (hitCount >= Mathf.FloorToInt(verticalRayCount * 0.5f))
+                {
+                    collisions.left = directionY == -1;
+                    collisions.right = directionY == 1;
+                }
             }
         }
     }

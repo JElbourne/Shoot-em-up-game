@@ -10,7 +10,6 @@ public class InventorySlot : MonoBehaviour {
 
     public void AddItem(Item _newItem)
     {
-        Debug.Log("Going to add this from AddItem: " + _newItem);
         m_Item = _newItem;
 
         icon.sprite = _newItem.icon;
@@ -29,10 +28,12 @@ public class InventorySlot : MonoBehaviour {
     public void OnRemoveButton()
     {
         InventoryController.instance.Remove(m_Item);
+        
     }
 
     public void UseItem()
     {
+        // Debug.Log("Tried to use m_Item: " + m_Item);
         if (m_Item != null)
         {
             m_Item.Use();

@@ -5,14 +5,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Equipment", menuName = "Inventory/Equipment")]
 public class Equipment : Item {
 
-    public EquipmentSlot equipmentSlot;
+    public EquipmentSlotType equipmentSlotType;
     public int armorModifier;
     public int damageModifier;
+    public int lightLevelModifier;
+    public int speedModifier;
+    public int powerModifier;
 
     public override void Use()
     {
-        base.Use();
         // Equip the item
+        // Debug.Log("Use Equipment");
         EquipmentController.instance.Equip(this);
         // Remove from the inventory
         RemoveFromInvetory();
@@ -20,7 +23,7 @@ public class Equipment : Item {
 
 }
 
-public enum EquipmentSlot
+public enum EquipmentSlotType
 {
     Head, Chest, Legs, Weapon, Shield, Feet
 }

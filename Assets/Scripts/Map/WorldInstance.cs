@@ -11,6 +11,8 @@ public class WorldInstance : MonoBehaviour {
 
     [HideInInspector]
     public List<Vector3> potentialStairLocations = new List<Vector3>();
+    [HideInInspector]
+    public List<Vector3> potentialBatteryLocations = new List<Vector3>();
 
     [HideInInspector]
     public int currentLevel = 1;
@@ -20,11 +22,17 @@ public class WorldInstance : MonoBehaviour {
 
     public GameObject stairTile;
     public GameObject exitTile;
+    public GameObject batteryPackTile;
+    public GameObject batteryCellTile;
 
     [HideInInspector]
     public Dictionary<int, GameObject> levelsData = new Dictionary<int, GameObject>();
-    
-    Dictionary<Vector3, Tile> m_MapTileData = new Dictionary<Vector3, Tile>();
+
+    [HideInInspector]
+    public Dictionary<Vector3, Tile> mapTileData = new Dictionary<Vector3, Tile>();
+
+    [HideInInspector]
+    public Dictionary<Vector3, Tile> itemsData = new Dictionary<Vector3, Tile>();
 
     #region Singleton
     public static WorldInstance instance;
@@ -57,6 +65,7 @@ public class WorldInstance : MonoBehaviour {
 
             bool exit = (i == numberOfLevels - 1);
             SelectAndPlaceStair(i + 1, m_LevelGo.transform, exit);
+            SelectAndPlaceBatteries(i + 1, m_LevelGo.transform);
             
 
             if (i != (currentLevel-1))
@@ -114,24 +123,45 @@ public class WorldInstance : MonoBehaviour {
             }
         }
 
-        InstatiateWorldTile(tile, currentPos, _parent, _level);
+        InstantiateMapTile(tile, currentPos, _parent, _level);
     }
 
-    public void InstatiateWorldTile(GameObject _tileObject, Vector3 _spawnPos, Transform _parentTransform, int _level)
+    void SelectAndPlaceBatteries(int _level, Transform _parent)
+    {
+        foreach (Vector3 batteryCoord in potentialBatteryLocations)
+        {
+            if (batteryCoord.z == _level) // make sure we only look at the stair locations for the current Level. 
+            {
+                Vector3 batteryPos = new Vector3(batteryCoord.x, batteryCoord.y, 0f); // Reset the z coord back to 0. 
+                GameObject m_BatteryGO = (Random.value > 0.7f) ? batteryPackTile : batteryCellTile;
+                Tile m_Tile = InstantiateTile(m_BatteryGO, batteryPos, _parent, _level);
+                Vector3 tileKey = new Vector3(batteryPos.x, batteryPos.y, _level);
+                itemsData[tileKey] = m_Tile;
+            }
+        }
+    }
+
+    public void InstantiateMapTile(GameObject _tileObject, Vector3 _spawnPos, Transform _parentTransform, int _level)
+    {
+        Tile m_Tile = InstantiateTile(_tileObject, _spawnPos, _parentTransform, _level);
+        Vector3 tileKey = new Vector3(_spawnPos.x, _spawnPos.y, _level);
+        mapTileData[tileKey] = m_Tile;
+    }
+
+    Tile InstantiateTile(GameObject _tileObject, Vector3 _spawnPos, Transform _parentTransform, int _level)
     {
         GameObject m_TileGo = Instantiate(_tileObject, _spawnPos, Quaternion.identity, _parentTransform);
         SpriteRenderer m_SpriteRenderer = m_TileGo.GetComponent<SpriteRenderer>();
         // m_SpriteRenderer.enabled = false;
         m_SpriteRenderer.color = new Color(1f, 1f, 1f, 0f);
 
-        Vector3 tileKey = new Vector3(_spawnPos.x, _spawnPos.y, _level);
         bool m_TileHasCollider = (m_TileGo.GetComponent<Collider2D>() != null);
-        m_MapTileData[tileKey] = new Tile(m_TileGo, m_SpriteRenderer, _tileObject.name, m_TileHasCollider);
+        return new Tile(m_TileGo, m_SpriteRenderer, _tileObject.name, m_TileHasCollider);
     }
 
     public bool isCoordInMapTileData(Vector3 coord)
     {
-        return m_MapTileData.ContainsKey(coord);
+        return mapTileData.ContainsKey(coord);
     }
 
     public int[] getTileCoord(Transform _transform)
@@ -141,18 +171,55 @@ public class WorldInstance : MonoBehaviour {
         return new int[2] { posX, posY };
     }
 
+    public Tile[] getTileNeighbours(Vector3 _tileCoord)
+    {
+        List<Tile> m_Neighbours = new List<Tile>();
+        for (int x = -1; x < 1; x++)
+        {
+            for (int y = -1; y < 1; y++)
+            {
+                Tile m_Tile = getMapTileData(new Vector3(_tileCoord.x + x, _tileCoord.y + y, _tileCoord.z));
+                m_Neighbours.Add(m_Tile);
+            }
+        }
+        return m_Neighbours.ToArray();
+    }
+
     public Tile getMapTileData(Vector3 coord)
     {
-        if (m_MapTileData.ContainsKey(coord))
+        if (mapTileData.ContainsKey(coord))
         {
-            return m_MapTileData[coord];
+            return mapTileData[coord];
         }
         return null;
     }
 
+    public Tile getItemsData(Vector3 _coord)
+    {
+        if (itemsData.ContainsKey(_coord))
+        {
+            return itemsData[_coord];
+        }
+        return null;
+    }
+
+    public void RemoveFromItemsData(Transform _transform)
+    {
+        Vector3 m_Coord = new Vector3(_transform.position.x, _transform.position.y, currentLevel);
+        if (itemsData.ContainsKey(m_Coord))
+        {
+            itemsData.Remove(m_Coord);
+        }
+    } 
+
     public void LightWorld()
     {
-        foreach(Tile tile in m_MapTileData.Values)
+        foreach(Tile tile in mapTileData.Values)
+        {
+            tile.SetOpacity(100f);
+        }
+
+        foreach (Tile tile in itemsData.Values)
         {
             tile.SetOpacity(100f);
         }

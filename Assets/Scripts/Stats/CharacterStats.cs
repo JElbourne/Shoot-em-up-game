@@ -3,11 +3,14 @@
 public class CharacterStats : MonoBehaviour
 {
 
-    public int maxHealth = 100;
-    public int currentHealth { get; private set; }
+    public IntReference maxHealth;
+    public IntReference currentHealth;
+
+    public Stat maxArmour;
+    public IntReference currentArmour;
 
     public Stat damage;
-    public Stat armor;
+    public Stat intelligence;
 
     public Stat lightLevel;
     public bool limitedLighting = false;
@@ -15,36 +18,63 @@ public class CharacterStats : MonoBehaviour
     public Stat maxSpeed;
     public float accelerationTime = .1f;
 
-    private void Awake()
+    protected void Awake()
     {
-        currentHealth = maxHealth;
+        currentHealth.Value = maxHealth.Value;
+        // Debug.Log("currentHealth: " + currentHealth);
+        if (damage.value == 0)
+            Debug.LogWarning("Damage value of " + gameObject.name + " is not setup.");
+        if (maxArmour.value == 0)
+            Debug.LogWarning("Armour value of " + gameObject.name + " is not setup.");
+        if (lightLevel.value == 0)
+            Debug.LogWarning("Light Level of " + gameObject.name + " is not set so map will not light up.");
+        if (maxSpeed.value == 0)
+            Debug.LogWarning("Max Speed of " + gameObject.name + " is not set so movement will not work.");
     }
 
-    private void Start()
+    public void RegenArmour(int _amount)
     {
-        if (damage.getValue() == 0)
-            Debug.LogWarning("Damage value of " + gameObject.name + " is not setup.");
-        if (armor.getValue() == 0)
-            Debug.LogWarning("Armour value of " + gameObject.name + " is not setup.");
-        if (lightLevel.getValue() == 0)
-            Debug.LogWarning("Light Level of " + gameObject.name + " is not set so map will not light up.");
-        if (maxSpeed.getValue() == 0)
-            Debug.LogWarning("Max Speed of " + gameObject.name + " is not set so movement will not work.");
+        int tempArmour = currentArmour.Value;
+        tempArmour += _amount;
+        currentArmour.Value = Mathf.Clamp(tempArmour, 0, maxArmour.value);
+    }
+
+    public void AddIntelligence(int _amount)
+    {
+        intelligence.AddModifier(_amount);
+    }
+
+    public void RemoveIntelligence(int _amount)
+    {
+        intelligence.RemoveModifier(_amount);
     }
 
     public void TakeDamage(int _damage)
     {
-
-        _damage -= armor.getValue();
         _damage = Mathf.Clamp(_damage, 0, int.MaxValue);
 
-        currentHealth -= _damage;
-        Debug.Log(transform.name + " takes " + _damage + " damage.");
+        int m_RemainingDamage = UseArmour(_damage);
 
-        if (currentHealth <= 0)
+        currentHealth.Value -= m_RemainingDamage;
+        Debug.Log(transform.name + " takes " + m_RemainingDamage + " damage.");
+
+        if (currentHealth.Value <= 0)
         {
             Die();
         }
+    }
+
+    public int UseArmour(int _damage)
+    {
+        int m_TempArmour = currentArmour.Value - _damage;
+        if (m_TempArmour < 0)
+        {
+            currentArmour.Value = 0;
+            return (_damage - currentArmour.Value);
+        }
+
+        currentArmour.Value = m_TempArmour;
+        return 0;
     }
 
     public virtual void Die()

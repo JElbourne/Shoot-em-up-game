@@ -5,7 +5,7 @@ public class StairsController : MonoBehaviour {
 
     // Called by an Interactable Trait
     public void Action () {
-        FindObjectOfType<LevelManager>().ChangeLevel(toLevel);
+        LevelManager.instance.ChangeLevel(toLevel);
 	}
 
 }

@@ -27,13 +27,13 @@ public class EquipmentController : MonoBehaviour {
     private void Start()
     {
         inventory = InventoryController.instance;
-        int numSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
+        int numSlots = System.Enum.GetNames(typeof(EquipmentSlotType)).Length;
         currentEquipment = new Equipment[numSlots];
     }
 
     public void Equip (Equipment _newItem)
     {
-        int slotIndex = (int)_newItem.equipmentSlot;
+        int slotIndex = (int)_newItem.equipmentSlotType;
 
         Equipment m_OldItem = null;
 
@@ -45,6 +45,7 @@ public class EquipmentController : MonoBehaviour {
 
         if(onEquipmentChanged != null)
         {
+            // Debug.Log("Invoking onEquipmentChanged");
             onEquipmentChanged.Invoke(_newItem, m_OldItem);
         }
 

@@ -46,13 +46,13 @@ public class FieldOfViewGenerator : MonoBehaviour {
                 continue;
 
             int[] entityTileCoord = WorldInstance.instance.getTileCoord(entityGo.transform);
-            if (entity.lightLevel.getValue() <= 0)
+            if (entity.lightLevel.value <= 0)
             {
                 continue;
                 // m_EntityCoords[entityGo.transform.position] = entityGo;
             } else
             {
-                m_LightLevel = entity.lightLevel.getValue();
+                m_LightLevel = entity.lightLevel.value;
                 SetupMulti(entity.limitedLighting, entityGo);
 
                 for( int section = 0; section < m_VisionSections; section++)
@@ -137,7 +137,13 @@ public class FieldOfViewGenerator : MonoBehaviour {
             if (tile != null)
             {
                 tile.SetOpacity(0f);
-            } 
+            }
+
+            tile = m_World.getItemsData(coord);
+            if (tile != null)
+            {
+                tile.SetOpacity(0f);
+            }
         }
         m_LitCoords.Clear();
     }
@@ -150,7 +156,13 @@ public class FieldOfViewGenerator : MonoBehaviour {
             if (tile != null)
             {
                 tile.SetOpacity(m_LitCoords[coord]);
-            }   
+            }
+
+            tile = m_World.getItemsData(coord);
+            if (tile != null)
+            {
+                tile.SetOpacity(m_LitCoords[coord]);
+            }
         }
     }
 
@@ -159,7 +171,7 @@ public class FieldOfViewGenerator : MonoBehaviour {
         Tile m_TileData = m_World.getMapTileData(coord);
         if (m_TileData != null)
         {
-            return m_TileData.willBlockLight();
+            return m_TileData.hasCollider();
         }
         return true;
     }
