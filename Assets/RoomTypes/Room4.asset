@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d79526096e560c4e8871971854526e2, type: 3}
+  m_Name: Room4
+  m_EditorClassIdentifier: 
+  name: Room4
+  roomPattern: {fileID: 2800000, guid: 99ae6df318064444bb24dd898bd356a5, type: 3}
+  floorTile: {fileID: 1348133729177994, guid: 6eafa4d7d8abb0d4a880d19a1dc7321b, type: 2}
+  wallTile: {fileID: 1348133729177994, guid: 526cda0fd54858c44b466001f90b3db2, type: 2}
+  specialItem: {fileID: 0}
+  numberOfBatterySpawners: 1
+  numberOfMinerals: 0
+  spawnsEnemies: 0

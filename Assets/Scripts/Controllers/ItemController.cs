@@ -5,11 +5,14 @@ public class ItemController : MonoBehaviour {
 
     public Item item;
 
+    protected SpriteRenderer m_SpriteRenderer;
+
     public void Awake()
     {
         if(item)
         {
-            GetComponent<SpriteRenderer>().sprite = item.sprite;
+            m_SpriteRenderer = GetComponent<SpriteRenderer>();
+            m_SpriteRenderer.sprite = item.sprite;
         }
     }
     // Called by an Interactable Trait

@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Tile {
-    GameObject m_TileGo;
+    
     SpriteRenderer m_SpriteRenderer;
     string m_Name;
     bool m_HasCollider;
 
+    public GameObject tileGo { get; private set; }
     public int movementCost = 1;
 
     public Tile(GameObject _tileGo, SpriteRenderer _spriteRenderer, string _name, bool _hasCollider = false)
     {
-        m_TileGo = _tileGo;
+        tileGo = _tileGo;
         m_SpriteRenderer = _spriteRenderer;
         m_Name = _name;
         m_HasCollider = _hasCollider;
@@ -41,7 +42,7 @@ public class Tile {
 
     public void EnableVisible()
     {
-        m_SpriteRenderer = m_TileGo.GetComponent<SpriteRenderer>();
+        m_SpriteRenderer = tileGo.GetComponent<SpriteRenderer>();
         m_SpriteRenderer.enabled = true;
     }
 
@@ -52,7 +53,7 @@ public class Tile {
 
     public void SetOpacity(float _opacity)
     {
-        if(m_SpriteRenderer.color.a != (_opacity / 100f))
+        if(m_SpriteRenderer != null && m_SpriteRenderer.color.a != (_opacity / 100f))
         {
             m_SpriteRenderer.color = new Color(1f, 1f, 1f, (_opacity / 100f));
         }
@@ -65,6 +66,6 @@ public class Tile {
 
     public Vector3 getCoord()
     {
-        return m_TileGo.transform.position;
+        return tileGo.transform.position;
     }
 }

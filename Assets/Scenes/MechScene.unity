@@ -687,12 +687,12 @@ RectTransform:
   m_Children:
   - {fileID: 1159739493}
   m_Father: {fileID: 582007271}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -16, y: -16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &86496605
 MonoBehaviour:
@@ -2057,8 +2057,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 86496604}
   - {fileID: 1769431520}
+  - {fileID: 86496604}
   - {fileID: 608514872}
   m_Father: {fileID: 12760322}
   m_RootOrder: 2
@@ -3533,21 +3533,21 @@ MonoBehaviour:
   roomTilesHigh: 18
   numberOfLevels: 2
   potentialStairLocations: []
-  potentialBatteryLocations: []
+  batteryLocations: []
+  potentialFloorLocations: []
   currentLevel: 1
-  m_RoomPatterns:
-  - {fileID: 2800000, guid: 5d4c4f40a1564c444887e7999c48d18d, type: 3}
-  - {fileID: 2800000, guid: dc7b8578c102bd546bd34dc9a366a8f0, type: 3}
-  - {fileID: 2800000, guid: 73332cb71d001244fb5ab7bc35af61a8, type: 3}
-  - {fileID: 2800000, guid: 99ae6df318064444bb24dd898bd356a5, type: 3}
-  - {fileID: 2800000, guid: 1d48a76d657a5804c9beacc313aec3ad, type: 3}
-  - {fileID: 2800000, guid: 564d6ca77f8ea7041bf378157f5feba0, type: 3}
+  m_RoomTypes:
+  - {fileID: 11400000, guid: eac4c8f870658004c83baf626ff37997, type: 2}
+  - {fileID: 11400000, guid: 59a0f37af56e001449b2aa82ab446b0c, type: 2}
+  - {fileID: 11400000, guid: fa8fc45d95a54214796f49da037f3e18, type: 2}
+  - {fileID: 11400000, guid: 62cdccaaa206cb44e92396ca575d24c0, type: 2}
+  - {fileID: 11400000, guid: df2cf3c80b5992545a03ccecc12cbbcc, type: 2}
+  - {fileID: 11400000, guid: 481a8c671f8c57d44ab52318609e8eeb, type: 2}
   stairTile: {fileID: 1492939833763104, guid: 051f13e1e3091b547abea0dcebd70dee, type: 2}
   exitTile: {fileID: 1492939833763104, guid: cd12a54de15ae454aaebb19262cc9159, type: 2}
-  batteryPackTile: {fileID: 1262800454300178, guid: f6be7abe27057684e8abe98b33dbbfd4,
+  itemSpawnerTile: {fileID: 1262800454300178, guid: f6be7abe27057684e8abe98b33dbbfd4,
     type: 2}
-  batteryCellTile: {fileID: 1262800454300178, guid: 0effc1e4da7a56a4db750a97252a80ea,
-    type: 2}
+  batteryItem: {fileID: 11400000, guid: 05e2b12c1b4d3d04dbac0fe3871fb16e, type: 2}
 --- !u!114 &888110700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3559,25 +3559,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b6329b56acffb4599c63c657c1ef6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tex: {fileID: 0}
-  gridPos: {x: 0, y: 0}
-  type: 0
-  level: 0
-  doorTop: 0
-  doorBot: 0
-  doorLeft: 0
-  doorRight: 0
   doorU: {fileID: 1152370622949468, guid: 71ef14862abca91428027002fc9c0b20, type: 2}
   doorD: {fileID: 1152370622949468, guid: 71ef14862abca91428027002fc9c0b20, type: 2}
   doorL: {fileID: 1152370622949468, guid: 71ef14862abca91428027002fc9c0b20, type: 2}
   doorR: {fileID: 1152370622949468, guid: 71ef14862abca91428027002fc9c0b20, type: 2}
   doorWall: {fileID: 1348133729177994, guid: 526cda0fd54858c44b466001f90b3db2, type: 2}
-  mappings:
-  - color: {r: 0, g: 0, b: 0, a: 1}
-    prefab: {fileID: 1348133729177994, guid: 526cda0fd54858c44b466001f90b3db2, type: 2}
-  floorTile: {fileID: 1348133729177994, guid: 6eafa4d7d8abb0d4a880d19a1dc7321b, type: 2}
-  stairColor: {r: 1, g: 0, b: 0, a: 1}
-  batteryColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!114 &888110701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3677,7 +3663,7 @@ MonoBehaviour:
   m_Sprite: {fileID: 21300000, guid: ac82b7e8677029945b864e27013fc36b, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
-  m_FillCenter: 0
+  m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
@@ -5501,7 +5487,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 3.0000038}
+  m_AnchoredPosition: {x: 0, y: 3.0000076}
   m_SizeDelta: {x: 70, y: 15}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1304939063
@@ -7576,7 +7562,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 582007271}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7596,7 +7582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7605,7 +7591,7 @@ MonoBehaviour:
   m_Sprite: {fileID: 21300000, guid: ac82b7e8677029945b864e27013fc36b, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
-  m_FillCenter: 0
+  m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
@@ -9475,8 +9461,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291624959
-  m_fontColor: {r: 1, g: 1, b: 0.8, a: 1}
+    rgba: 4282201627
+  m_fontColor: {r: 0.105882354, g: 0.21176471, b: 0.23921569, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -9493,8 +9479,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 8
-  m_fontSizeBase: 8
+  m_fontSize: 14
+  m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 6

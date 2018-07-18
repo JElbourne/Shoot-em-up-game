@@ -12,18 +12,21 @@ public class WorldInstance : MonoBehaviour {
     [HideInInspector]
     public List<Vector3> potentialStairLocations = new List<Vector3>();
     [HideInInspector]
-    public List<Vector3> potentialBatteryLocations = new List<Vector3>();
+    public List<Vector3> batteryLocations = new List<Vector3>();
+    [HideInInspector]
+    public List<Vector3> potentialFloorLocations = new List<Vector3>();
 
     [HideInInspector]
     public int currentLevel = 1;
 
     [SerializeField]
-	Texture2D[] m_RoomPatterns;
+    RoomType[] m_RoomTypes;
 
     public GameObject stairTile;
     public GameObject exitTile;
-    public GameObject batteryPackTile;
-    public GameObject batteryCellTile;
+    public GameObject itemSpawnerTile;
+
+    public Item batteryItem;
 
     [HideInInspector]
     public Dictionary<int, GameObject> levelsData = new Dictionary<int, GameObject>();
@@ -32,7 +35,7 @@ public class WorldInstance : MonoBehaviour {
     public Dictionary<Vector3, Tile> mapTileData = new Dictionary<Vector3, Tile>();
 
     [HideInInspector]
-    public Dictionary<Vector3, Tile> itemsData = new Dictionary<Vector3, Tile>();
+    public Dictionary<Vector3, Tile> itemsData = new Dictionary<Vector3, Tile>(); // Non-Map Objects to light
 
     #region Singleton
     public static WorldInstance instance;
@@ -65,7 +68,7 @@ public class WorldInstance : MonoBehaviour {
 
             bool exit = (i == numberOfLevels - 1);
             SelectAndPlaceStair(i + 1, m_LevelGo.transform, exit);
-            SelectAndPlaceBatteries(i + 1, m_LevelGo.transform);
+            SelectAndPlaceItemSpawner(batteryLocations, i + 1, m_LevelGo.transform, batteryItem);
             
 
             if (i != (currentLevel-1))
@@ -82,7 +85,7 @@ public class WorldInstance : MonoBehaviour {
 				continue;
 			}
 			//pick a random index for the array
-			int index = Mathf.RoundToInt(Random.value * (m_RoomPatterns.Length -1));
+			int index = Mathf.RoundToInt(Random.value * (m_RoomTypes.Length -1));
             //find position to place room
 			Vector3 pos = new Vector3(room.gridPos.x * roomTilesWide, room.gridPos.y * roomTilesHigh, 0);
             GameObject m_RoomRoot = new GameObject("RoomRoot");
@@ -93,9 +96,7 @@ public class WorldInstance : MonoBehaviour {
             GetComponent<RoomGeneration>().SetupRoom(
                 m_RoomRoot.transform,
                 _level,
-                m_RoomPatterns[index],
-                room.gridPos,
-                room.type,
+                m_RoomTypes[index],
                 room.doorTop,
                 room.doorBot,
                 room.doorLeft,
@@ -126,17 +127,16 @@ public class WorldInstance : MonoBehaviour {
         InstantiateMapTile(tile, currentPos, _parent, _level);
     }
 
-    void SelectAndPlaceBatteries(int _level, Transform _parent)
+    void SelectAndPlaceItemSpawner(List<Vector3> _locations, int _level, Transform _parent, Item _item)
     {
-        foreach (Vector3 batteryCoord in potentialBatteryLocations)
+        foreach (Vector3 m_Coord in _locations)
         {
-            if (batteryCoord.z == _level) // make sure we only look at the stair locations for the current Level. 
+            if (m_Coord.z == _level) // make sure we only look at the stair locations for the current Level. 
             {
-                Vector3 batteryPos = new Vector3(batteryCoord.x, batteryCoord.y, 0f); // Reset the z coord back to 0. 
-                GameObject m_BatteryGO = (Random.value > 0.7f) ? batteryPackTile : batteryCellTile;
-                Tile m_Tile = InstantiateTile(m_BatteryGO, batteryPos, _parent, _level);
-                Vector3 tileKey = new Vector3(batteryPos.x, batteryPos.y, _level);
-                itemsData[tileKey] = m_Tile;
+                // Debug.Log("Placing Battery");
+                Vector3 batteryPos = new Vector3(m_Coord.x, m_Coord.y, 0f); // Reset the z coord back to 0. 
+                Tile m_Tile = ReplaceMapTile(itemSpawnerTile, batteryPos, _parent, _level);
+                m_Tile.tileGo.GetComponent<ItemSpawnController>().item = _item;
             }
         }
     }
@@ -146,6 +146,22 @@ public class WorldInstance : MonoBehaviour {
         Tile m_Tile = InstantiateTile(_tileObject, _spawnPos, _parentTransform, _level);
         Vector3 tileKey = new Vector3(_spawnPos.x, _spawnPos.y, _level);
         mapTileData[tileKey] = m_Tile;
+    }
+
+    public Tile ReplaceMapTile(GameObject _tileObject, Vector3 _spawnPos, Transform _parentTransform, int _level)
+    {
+        Tile m_Tile = InstantiateTile(_tileObject, _spawnPos, _parentTransform, _level);
+        Vector3 tileKey = new Vector3(_spawnPos.x, _spawnPos.y, _level);
+
+        if(mapTileData.ContainsKey(tileKey))
+        {
+            Tile m_OriginalTile = mapTileData[tileKey];
+            Destroy(m_OriginalTile.tileGo);
+            //Debug.Log("Tile Destroyed for Replacment");
+        }
+        
+        mapTileData[tileKey] = m_Tile;
+        return m_Tile;
     }
 
     Tile InstantiateTile(GameObject _tileObject, Vector3 _spawnPos, Transform _parentTransform, int _level)

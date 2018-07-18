@@ -9,6 +9,9 @@ public class Item : ScriptableObject {
 
     public bool isDefaultItem = false;
 
+    public float spawnDelay = 5.0f;
+    public int maxSpawns = 1; // Used for spawners to determine how many items are in a spawner.
+
     public virtual void Use()
     {
         // Use the Item
