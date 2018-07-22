@@ -1,0 +1,8 @@
+﻿Attempting to gather dependency information for package 'OptimizedPriorityQueue.4.1.1' with respect to project 'Assembly-CSharp', targeting '.NETFramework,Version=v3.5'
+Attempting to resolve dependencies for package 'OptimizedPriorityQueue.4.1.1' with DependencyBehavior 'Lowest'
+Resolving actions to install package 'OptimizedPriorityQueue.4.1.1'
+Resolved actions to install package 'OptimizedPriorityQueue.4.1.1'
+Package 'OptimizedPriorityQueue.4.1.1' already exists in folder 'F:\Jay\Dropbox\Unity\GitHub\Shoot-em-up-game\packages'
+Added package 'OptimizedPriorityQueue.4.1.1' to 'packages.config'
+Successfully installed 'OptimizedPriorityQueue 4.1.1' to Assembly-CSharp
+========== Finished ==========

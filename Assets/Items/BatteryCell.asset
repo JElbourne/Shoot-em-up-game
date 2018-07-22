@@ -15,6 +15,8 @@ MonoBehaviour:
   icon: {fileID: 21300012, guid: 1b36c0d8dea856a44a4a2a26d6bb2dd1, type: 3}
   sprite: {fileID: 21300012, guid: 1b36c0d8dea856a44a4a2a26d6bb2dd1, type: 3}
   isDefaultItem: 0
+  spawnDelay: 2
+  maxSpawns: 10
   powerValue: 5
   foodValue: 0
   intelligenceModifier: 0

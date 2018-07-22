@@ -13,11 +13,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Armour
   icon: {fileID: 21300016, guid: 1b36c0d8dea856a44a4a2a26d6bb2dd1, type: 3}
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300016, guid: 1b36c0d8dea856a44a4a2a26d6bb2dd1, type: 3}
   isDefaultItem: 0
+  spawnDelay: 5
+  maxSpawns: 1
   equipmentSlotType: 0
-  armorModifier: 2
-  damageModifier: 1
+  armorModifier: 5
+  damageModifier: 0
   lightLevelModifier: 0
   speedModifier: 0
   powerModifier: 0

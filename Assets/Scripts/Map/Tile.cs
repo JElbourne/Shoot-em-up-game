@@ -11,12 +11,15 @@ public class Tile {
     public GameObject tileGo { get; private set; }
     public int movementCost = 1;
 
+    public Vector3 pos;
+
     public Tile(GameObject _tileGo, SpriteRenderer _spriteRenderer, string _name, bool _hasCollider = false)
     {
         tileGo = _tileGo;
         m_SpriteRenderer = _spriteRenderer;
         m_Name = _name;
         m_HasCollider = _hasCollider;
+        pos = _tileGo.transform.position;
     }
 
     public bool isEnabled()

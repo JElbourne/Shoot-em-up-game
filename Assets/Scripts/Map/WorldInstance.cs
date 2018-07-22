@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(TileGraph))]
 public class WorldInstance : MonoBehaviour {
 
     public Vector2 worldSize = new Vector2(8, 8); // Grid Size that holds individual rooms.
@@ -13,8 +13,6 @@ public class WorldInstance : MonoBehaviour {
     public List<Vector3> potentialStairLocations = new List<Vector3>();
     [HideInInspector]
     public List<Vector3> batteryLocations = new List<Vector3>();
-    [HideInInspector]
-    public List<Vector3> potentialFloorLocations = new List<Vector3>();
 
     [HideInInspector]
     public int currentLevel = 1;
@@ -37,6 +35,11 @@ public class WorldInstance : MonoBehaviour {
     [HideInInspector]
     public Dictionary<Vector3, Tile> itemsData = new Dictionary<Vector3, Tile>(); // Non-Map Objects to light
 
+    [HideInInspector]
+    public TileGraph tileGraph;
+
+    TileGraph m_LevelGrid;
+
     #region Singleton
     public static WorldInstance instance;
 
@@ -48,6 +51,8 @@ public class WorldInstance : MonoBehaviour {
             return;
         }
         instance = this;
+
+        m_LevelGrid = GetComponent<TileGraph>();
     }
     #endregion
 
@@ -69,12 +74,15 @@ public class WorldInstance : MonoBehaviour {
             bool exit = (i == numberOfLevels - 1);
             SelectAndPlaceStair(i + 1, m_LevelGo.transform, exit);
             SelectAndPlaceItemSpawner(batteryLocations, i + 1, m_LevelGo.transform, batteryItem);
-            
+
+            m_LevelGrid.Setup();
 
             if (i != (currentLevel-1))
             {
                 m_LevelGo.SetActive(false);
             }
+
+
         }
     }
 
@@ -187,6 +195,13 @@ public class WorldInstance : MonoBehaviour {
         return new int[2] { posX, posY };
     }
 
+    public Vector2 getTilePosition(Vector3 _coord)
+    {
+        int posX = Mathf.RoundToInt(_coord.x);
+        int posY = Mathf.RoundToInt(_coord.y);
+        return new Vector2( posX, posY );
+    }
+
     public Tile[] getTileNeighbours(Vector3 _tileCoord)
     {
         List<Tile> m_Neighbours = new List<Tile>();
@@ -208,6 +223,26 @@ public class WorldInstance : MonoBehaviour {
             return mapTileData[coord];
         }
         return null;
+    }
+
+    public int GetTileMovementCost(Vector3 _coord)
+    {
+        if (mapTileData.ContainsKey(_coord))
+        {
+            return mapTileData[_coord].movementCost;
+        }
+        // If can not find a tile we will default to not a walkable tile so has 0 movement
+        return 0;
+    }
+
+    public bool isTileCollider(Vector3 _coord)
+    {
+        if (mapTileData.ContainsKey(_coord))
+        {
+            return mapTileData[_coord].hasCollider();
+        }
+        // If can not find a tile we will default to not a walkable tile so has collider
+        return true;
     }
 
     public Tile getItemsData(Vector3 _coord)
