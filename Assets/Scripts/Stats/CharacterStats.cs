@@ -17,6 +17,7 @@ public class CharacterStats : MonoBehaviour
 
     public Stat maxSpeed;
     public float accelerationTime = .1f;
+    public float turnDistance = 5;
 
     protected void Awake()
     {

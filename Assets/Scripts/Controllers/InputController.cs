@@ -2,19 +2,24 @@
 using UnityEngine;
 
 public class InputController : MonoBehaviour {
-
+    public GameObject target;
     MoveTrait m_MoveTrait;
     FireTrait m_FireTrait;
     FaceTargetTrait m_FaceTargetTrait;
     InteractTrait m_InteractTrait;
-    //PathfindingTrait m_PathfindingTrait;
+    Unit m_PathfindingTrait;
+
+    private void Start()
+    {
+        SetupInput(target);
+    }
 
     public void SetupInput (GameObject _target) {
         m_MoveTrait = _target.GetComponent<MoveTrait>();
         m_FaceTargetTrait = _target.GetComponentInChildren<FaceTargetTrait>();
         m_FireTrait = _target.GetComponentInChildren<FireTrait>();
         m_InteractTrait = _target.GetComponentInChildren<InteractTrait>();
-        //m_PathfindingTrait = _target.GetComponent<PathfindingTrait>();
+        m_PathfindingTrait = _target.GetComponent<Unit>();
     }
 	
 	// Update is called once per frame
@@ -32,21 +37,21 @@ public class InputController : MonoBehaviour {
                 m_FaceTargetTrait.SetDirection(inputWorldPosition);
             }
 
-            if (m_MoveTrait)
-            {
-                Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-                m_MoveTrait.Move(input);
-            }
-
-            //if (m_PathfindingTrait)
+            //if (m_MoveTrait)
             //{
-            //    if(Input.GetMouseButtonDown(1))
-            //    {
-            //        Vector3 m_MousePos = Input.mousePosition;
-            //        Vector3 inputWorldPosition = Camera.main.ScreenToWorldPoint(m_MousePos);
-            //        m_PathfindingTrait.Move(inputWorldPosition);
-            //    }
+            //    Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            //    m_MoveTrait.Move(input);
             //}
+
+            if (m_PathfindingTrait)
+            {
+                if (Input.GetMouseButtonDown(1))
+                {
+                    Vector3 m_MousePos = Input.mousePosition;
+                    Vector3 inputWorldPosition = Camera.main.ScreenToWorldPoint(m_MousePos);
+                    m_PathfindingTrait.Setup(inputWorldPosition);
+                }
+            }
 
             if (m_FireTrait && Input.GetButton("Fire"))
                 m_FireTrait.Shoot(true);

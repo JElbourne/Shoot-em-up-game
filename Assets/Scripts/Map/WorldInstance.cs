@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(TileGraph))]
 public class WorldInstance : MonoBehaviour {
 
     public Vector2 worldSize = new Vector2(8, 8); // Grid Size that holds individual rooms.
@@ -36,9 +35,9 @@ public class WorldInstance : MonoBehaviour {
     public Dictionary<Vector3, Tile> itemsData = new Dictionary<Vector3, Tile>(); // Non-Map Objects to light
 
     [HideInInspector]
-    public TileGraph tileGraph;
+    public Grid tileGraph;
 
-    TileGraph m_LevelGrid;
+    Grid m_Grid;
 
     #region Singleton
     public static WorldInstance instance;
@@ -52,9 +51,27 @@ public class WorldInstance : MonoBehaviour {
         }
         instance = this;
 
-        m_LevelGrid = GetComponent<TileGraph>();
+        m_Grid = GetComponent<Grid>();
     }
     #endregion
+
+    public Vector2 GetGridWorldSize()
+    {
+        return new Vector2(worldSize.x * roomTilesWide, worldSize.y * roomTilesHigh);
+    }
+
+    public Vector2 GetGridRoomSize()
+    {
+        return new Vector2(roomTilesWide, roomTilesHigh);
+    }
+
+    public Vector2[] GetWorldPanLimit()
+    {
+        Vector2[] panLimits = new Vector2[2];
+        panLimits[0] = new Vector2(roomTilesWide/2 - 3f, roomTilesHigh/2 - 6.5f);
+        panLimits[1] = new Vector2((worldSize.x * roomTilesWide) - roomTilesWide/2 + 2f, (worldSize.y * roomTilesHigh) - roomTilesHigh/2 + 0.5f);
+        return panLimits;
+    }
 
     public void Setup()
     {
@@ -75,14 +92,12 @@ public class WorldInstance : MonoBehaviour {
             SelectAndPlaceStair(i + 1, m_LevelGo.transform, exit);
             SelectAndPlaceItemSpawner(batteryLocations, i + 1, m_LevelGo.transform, batteryItem);
 
-            m_LevelGrid.Setup();
+            m_Grid.CreateGrid(GetGridWorldSize(), GetGridRoomSize());
 
             if (i != (currentLevel-1))
             {
                 m_LevelGo.SetActive(false);
             }
-
-
         }
     }
 
@@ -93,9 +108,10 @@ public class WorldInstance : MonoBehaviour {
 				continue;
 			}
 			//pick a random index for the array
-			int index = Mathf.RoundToInt(Random.value * (m_RoomTypes.Length -1));
+			int roomTypeIndex = Mathf.RoundToInt(Random.value * (m_RoomTypes.Length -1));
+
             //find position to place room
-			Vector3 pos = new Vector3(room.gridPos.x * roomTilesWide, room.gridPos.y * roomTilesHigh, 0);
+			Vector3 pos = new Vector3(room.gridPos.x * roomTilesWide + roomTilesWide/2, room.gridPos.y * roomTilesHigh + roomTilesHigh / 2, 0);
             GameObject m_RoomRoot = new GameObject("RoomRoot");
             m_RoomRoot.transform.position = pos;
             m_RoomRoot.transform.parent = _levelRoot.transform;
@@ -104,7 +120,7 @@ public class WorldInstance : MonoBehaviour {
             GetComponent<RoomGeneration>().SetupRoom(
                 m_RoomRoot.transform,
                 _level,
-                m_RoomTypes[index],
+                m_RoomTypes[roomTypeIndex],
                 room.doorTop,
                 room.doorBot,
                 room.doorLeft,

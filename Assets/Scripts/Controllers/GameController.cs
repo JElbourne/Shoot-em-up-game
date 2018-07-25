@@ -37,9 +37,7 @@ public class GameController : MonoBehaviour {
     public enum gameState
     {
         menu,
-        pilot,
-        mechanic,
-        navigator,
+        playing,
         gameover
     }
 
@@ -57,7 +55,7 @@ public class GameController : MonoBehaviour {
 
     private void LateUpdate()
     {
-        if (!lightEntireMap && currentGameState == gameState.pilot)
+        if (!lightEntireMap && currentGameState == gameState.playing)
         {
             m_World.GetComponent<FieldOfViewGenerator>().GenerateFOV();
         }
@@ -67,10 +65,10 @@ public class GameController : MonoBehaviour {
     {
         // Add intial prefabs to the game.
         AddMinimap();
-        AddPlayer();
+        //AddPlayer();
 
         // Set the current Game State
-        currentGameState = gameState.pilot;
+        currentGameState = gameState.playing;
 
         LevelManager.instance.StartGame(1);
     }

@@ -16,7 +16,7 @@ public class CameraFollow : MonoBehaviour {
 
     void LateUpdate()
     {
-        if (m_GameController.currentGameState == GameController.gameState.pilot &&
+        if (m_GameController.currentGameState == GameController.gameState.playing &&
             target != null)
         {
             Vector3 desiredPosition = target.position + offset;
